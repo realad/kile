@@ -1,0 +1,36 @@
+name: Build
+
+on:
+  push:
+    paths-ignore:
+      - 'doc/**'
+      - '*.md'
+    branches:
+      - master
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+
+    runs-on: ${{matrix.os}}
+
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Run ubuntu tests
+        if: matrix.os == 'ubuntu-latest'
+        run: ./gradlew check jacocoReport
+
+      - name: SonarCloud Scan
+        if: matrix.os == 'ubuntu-latest'
+        run: ./gradlew sonarqube -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${SONAR_TOKEN}
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+env:
+  GRADLE_OPTS: -Dorg.gradle.configureondemand=true -Dorg.gradle.parallel=true -Dorg.gradle.daemon=false -Dkotlin.incremental=false -Dorg.gradle.jvmargs="-Xmx3g -XX:MaxPermSize=2048m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8"
