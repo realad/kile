@@ -2,9 +2,9 @@ package io.realad.kile.adapters.ftp.error
 
 import io.realad.kile.error.FilesystemError
 
-class ConnectToFtpHostFailed(
+class ConnectToFtpHostFailed private constructor(
     message: String,
-    previous: FilesystemError? = null
+    previous: FilesystemError?
 ) : FilesystemError(message, previous) {
 
     companion object {

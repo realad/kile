@@ -7,7 +7,7 @@ class RetrieveMetadataError private constructor(
     private val location: String,
     private val metadataType: FileAttributes.Attribute,
     message: String,
-    previous: FilesystemError? = null
+    previous: FilesystemError?
 ) : FilesystemOperationError(operation, message, previous) {
 
     fun getLocation(): String = location
@@ -24,7 +24,7 @@ class RetrieveMetadataError private constructor(
             location: String,
             metadataType: FileAttributes.Attribute,
             message: String,
-            previous: FilesystemError? = null
+            previous: FilesystemError?
         ): RetrieveMetadataError {
             return RetrieveMetadataError(operation, location, metadataType, message, previous)
         }
