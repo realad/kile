@@ -23,6 +23,11 @@ object Libs {
         const val mockk = "io.mockk:mockk:$version"
     }
 
+    object MockFtpServer {
+        private const val version = "2.7.1"
+        const val server = "org.mockftpserver:MockFtpServer:$version"
+    }
+
     object ApacheCommons {
         private const val version = "3.6"
         const val net = "commons-net:commons-net:$version"

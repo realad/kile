@@ -6,20 +6,24 @@ import io.realad.kile.adapters.ftp.error.ConnectToFtpHostFailed
 import io.realad.kile.error.FilesystemError
 import io.realad.kile.fp.Either
 import io.realad.kile.fp.left
+import io.realad.kile.fp.right
 import org.apache.commons.net.ftp.FTPClient
 import org.apache.commons.net.ftp.FTPReply
 import java.io.IOException
 
-class FtpConnectionProvider : ConnectionProvider<FTPClient> {
+actual class FtpConnectionProvider : FtpProvider {
 
-    override fun getConnection(options: ConnectionOptions): Either<FilesystemError, FTPClient> {
-        return when (val result = createConnection(options)) {
-            is Either.Left -> result
-            is Either.Right -> authenticate(options, result.r)
+    override fun getConnection(options: FtpOptions): Either<FilesystemError, FtpConnection> {
+        return when (val unauthenticatedConnection = createConnection(options)) {
+            is Either.Left -> unauthenticatedConnection
+            is Either.Right -> when (val authenticatedConnection = authenticate(options, unauthenticatedConnection.r)) {
+                is Either.Left -> authenticatedConnection
+                is Either.Right -> ApacheFtpConnection(authenticatedConnection.r).right()
+            }
         }
     }
 
-    private fun createConnection(options: ConnectionOptions): Either<FilesystemError, FTPClient> {
+    private fun createConnection(options: FtpOptions): Either<FilesystemError, FTPClient> {
         val client = FTPClient()
         try {
             client.connect(options.getHost(), options.getPort())
@@ -35,16 +39,16 @@ class FtpConnectionProvider : ConnectionProvider<FTPClient> {
             Napier.e("FTP reply is not positive, code: ${client.replyCode}, message: ${client.replyString}")
             return ConnectToFtpHostFailed.forHost(options.getHost(), options.getPort()).left()
         }
-        return Either.Right(client)
+        return client.right()
     }
 
     private fun authenticate(
-        options: ConnectionOptions,
+        options: FtpOptions,
         client: FTPClient
     ): Either<FilesystemError, FTPClient> {
         return try {
             if (client.login(options.getUsername(), options.getPassword())) {
-                Either.Right(client)
+                client.right()
             } else {
                 Napier.e("Unable to login/authenticate to FTP server with username: ${options.getUsername()}, code: ${client.replyCode}, message: ${client.replyString}")
                 AuthenticationFailed.forLogin(options.getUsername(), client.replyCode, client.replyString).left()

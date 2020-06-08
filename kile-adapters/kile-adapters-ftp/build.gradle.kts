@@ -47,6 +47,7 @@ kotlin {
             dependencies {
                 implementation(kotlin("stdlib-js"))
                 implementation(Libs.Napier.js)
+                implementation(npm("ftp"))
             }
         }
 
@@ -73,6 +74,8 @@ kotlin {
                 implementation(Libs.Kotest.runnerJUnit)
                 implementation(Libs.Kotest.core)
                 implementation(Libs.Kotest.assertionsCore)
+                implementation(Libs.Mockk.mockk)
+                implementation(Libs.MockFtpServer.server)
             }
         }
     }

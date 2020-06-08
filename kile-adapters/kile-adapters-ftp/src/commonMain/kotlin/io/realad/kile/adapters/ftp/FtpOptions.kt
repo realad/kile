@@ -1,6 +1,6 @@
 package io.realad.kile.adapters.ftp
 
-interface ConnectionOptions {
+interface FtpOptions {
 
     fun getHost(): String
 

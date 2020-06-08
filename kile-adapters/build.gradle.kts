@@ -1,7 +1,6 @@
 plugins {
     jacoco
     kotlin("multiplatform")
-    id("org.sonarqube")
 }
 
 repositories {

@@ -2,9 +2,9 @@ package io.realad.kile.adapters.ftp.error
 
 import io.realad.kile.error.FilesystemError
 
-class AuthenticationFailed(
+class AuthenticationFailed private constructor(
     message: String,
-    previous: FilesystemError? = null
+    previous: FilesystemError?
 ) : FilesystemError(message, previous) {
 
     companion object {
@@ -15,8 +15,8 @@ class AuthenticationFailed(
             previous: FilesystemError? = null
         ): AuthenticationFailed {
             return AuthenticationFailed(
-                "Unable to login/authenticate to FTP server with username: $username, replyCode: $replyCode, replyString: $replyString",
-                previous
+                "Unable to login/authenticate to FTP server with username: $username," +
+                    " replyCode: $replyCode, replyString: $replyString", previous
             )
         }
     }
