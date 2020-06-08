@@ -3,7 +3,7 @@ import org.jetbrains.dokka.gradle.DokkaTask
 plugins {
     jacoco
     kotlin("multiplatform") version Libs.kotlinVersion
-    id("org.sonarqube") version "2.7.1"
+    id("org.sonarqube") version "3.0"
     id("org.jetbrains.dokka") version Libs.dokkaVersion
     id("com.github.ben-manes.versions") version Libs.gradleVersionsPluginVersion
 }
