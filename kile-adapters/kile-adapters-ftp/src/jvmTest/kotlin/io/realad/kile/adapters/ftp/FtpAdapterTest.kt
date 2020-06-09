@@ -4,10 +4,7 @@ import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.collections.shouldContainExactly
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
-import io.mockk.confirmVerified
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.verify
+import io.mockk.*
 import io.realad.kile.error.FilesystemError
 import io.realad.kile.fp.Either
 import io.realad.kile.fp.left
@@ -89,6 +86,28 @@ class FtpAdapterTest : StringSpec({
         response.l.getPrevious()?.getPrevious()?.getPrevious() shouldBe null
         verify(exactly = 3) { provider.getConnection(any()) }
         verify(exactly = 0) { connection.mlistDir(any()) }
+        confirmVerified(connection, provider)
+    }
+
+    "should return a list of the directory contents returned from connection with a single reconnection end return again successfully" {
+        val location = "/root/test"
+        val listDirectoryResult = listOf("one", "two", "three")
+        every { provider.getConnection(any()) } returns FilesystemError("hello error").left() andThen connection.right()
+        every { connection.mlistDir(any()) } returns listDirectoryResult
+        val firstResponse = adapter.listContents(location)
+        firstResponse.isLeft() shouldBe false
+        firstResponse.isRight() shouldBe true
+        (firstResponse as Either.Right).r shouldNotBe null
+        firstResponse.r shouldBe listDirectoryResult
+        firstResponse.r shouldContainExactly listDirectoryResult
+        val secondResponse = adapter.listContents(location)
+        secondResponse.isLeft() shouldBe false
+        secondResponse.isRight() shouldBe true
+        (secondResponse as Either.Right).r shouldNotBe null
+        secondResponse.r shouldBe listDirectoryResult
+        secondResponse.r shouldContainExactly listDirectoryResult
+        verify(exactly = 2) { provider.getConnection(any()) }
+        verify(exactly = 2) { connection.mlistDir(any()) }
         confirmVerified(connection, provider)
     }
 
