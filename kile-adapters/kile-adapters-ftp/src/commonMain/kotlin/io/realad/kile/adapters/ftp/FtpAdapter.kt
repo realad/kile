@@ -11,27 +11,34 @@ class FtpAdapter(
     private val ftpProvider: FtpProvider
 ) : KileAdapter {
 
-    private var connection: FtpConnection? = null
+    private var connection: Either<FilesystemError, FtpConnection> = FilesystemError("Not connected yet!").left()
     private var connectionAttempts: Int = 3
     private var connectionAttemptsLeft: Int = connectionAttempts
 
-    private fun connection(): Either<FilesystemError, FtpConnection> {
-        var lastError: FilesystemError? = null
-        while (connection == null && connectionAttemptsLeft-- > 0) {
-            when (val either = ftpProvider.getConnection(ftpOptions)) {
-                is Either.Left -> lastError = either.l.apply { setPrevious(lastError) }
-                is Either.Right -> connection = either.r
+    private fun getConnection(): Either<FilesystemError, FtpConnection> = when (connection) {
+        is Either.Left -> {
+            var isFirstAttempt = true
+            while (connection.isLeft() && connectionAttemptsLeft-- > 0) {
+                connection = when (val freshEitherConnection = ftpProvider.getConnection(ftpOptions)) {
+                    is Either.Left -> {
+                        if (isFirstAttempt) freshEitherConnection
+                        else freshEitherConnection.apply { l.apply { setPrevious((connection as? Either.Left)?.l) } }
+                    }
+                    is Either.Right -> freshEitherConnection
+                }
+                isFirstAttempt = false
             }
+            connectionAttemptsLeft = connectionAttempts
+            connection
         }
-        return connection?.right() ?: lastError?.left() ?: FilesystemError("undefined error").left()
+        is Either.Right -> connection
     }
 
-    override fun listContents(path: String): Either<FilesystemError, List<String>> {
-        return when (val either = connection()) {
+    override fun listContents(path: String): Either<FilesystemError, List<String>> =
+        when (val either = getConnection()) {
             is Either.Left -> either.l.left()
             is Either.Right -> either.r.mlistDir(path).right()
         }
-    }
 
     override fun fileExists(location: String): Either<FilesystemError, Boolean> {
         TODO("Not yet implemented")
