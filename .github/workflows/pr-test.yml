@@ -20,7 +20,7 @@ jobs:
 
       - name: Run ubuntu tests
         if: matrix.os == 'ubuntu-latest'
-        run: ./gradlew check jacocoReport
+        run: ./gradlew detekt allTests jacocoReport
 
       - name: SonarCloud Scan
         if: matrix.os == 'ubuntu-latest'

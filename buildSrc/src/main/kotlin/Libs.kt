@@ -3,6 +3,8 @@ object Libs {
     const val kotlinVersion = "1.3.72"
     const val dokkaVersion = "0.10.1"
     const val gradleVersionsPluginVersion = "0.28.0"
+    const val sonarqubeVersion = "3.0"
+    const val detektVersion = "1.9.1"
 
     object Napier {
         private const val version = "1.3.0"

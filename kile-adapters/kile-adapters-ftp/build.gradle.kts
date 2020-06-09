@@ -1,20 +1,10 @@
 plugins {
     jacoco
     kotlin("multiplatform")
-    id("org.sonarqube")
 }
 
 repositories {
     mavenCentral()
-}
-
-sonarqube {
-    properties {
-        property("sonar.sources", "src/commonMain,src/jvmMain")
-        property("sonar.exclusions",
-            "src/commonMain/kotlin/io/realad/kile/adapters/ftp/FtpConnectionOptions.kt," +
-            "src/commonMain/kotlin/io/realad/kile/adapters/ftp/FtpConnectionProvider.kt")
-    }
 }
 
 kotlin {

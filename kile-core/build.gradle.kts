@@ -1,17 +1,10 @@
 plugins {
     jacoco
     kotlin("multiplatform")
-    id("org.sonarqube")
 }
 
 repositories {
     mavenCentral()
-}
-
-sonarqube {
-    properties {
-        property("sonar.sources", "src/commonMain")
-    }
 }
 
 kotlin {
