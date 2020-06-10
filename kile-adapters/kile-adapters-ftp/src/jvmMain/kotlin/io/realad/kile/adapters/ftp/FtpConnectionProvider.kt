@@ -24,9 +24,14 @@ actual class FtpConnectionProvider : FtpProvider {
     }
 
     private fun createConnection(options: FtpOptions): Either<FilesystemError, FTPClient> {
-        val client = FTPClient()
         try {
-            client.connect(options.getHost(), options.getPort())
+            val client = FTPClient().apply { connect(options.getHost(), options.getPort()) }
+            return if (FTPReply.isPositiveCompletion(client.replyCode)) {
+                client.right()
+            } else {
+                Napier.e("FTP reply is not positive, code: ${client.replyCode}, message: ${client.replyString}")
+                ConnectToFtpHostFailed.forHost(options.getHost(), options.getPort()).left()
+            }
         } catch (e: IOException) {
             Napier.e("Exception in connecting to FTP Server, host: ${options.getHost()}, port: ${options.getPort()}", e)
             return ConnectToFtpHostFailed.forHost(
@@ -35,11 +40,6 @@ actual class FtpConnectionProvider : FtpProvider {
                 FilesystemError(e.localizedMessage)
             ).left()
         }
-        if (!FTPReply.isPositiveCompletion(client.replyCode)) {
-            Napier.e("FTP reply is not positive, code: ${client.replyCode}, message: ${client.replyString}")
-            return ConnectToFtpHostFailed.forHost(options.getHost(), options.getPort()).left()
-        }
-        return client.right()
     }
 
     private fun authenticate(
@@ -50,7 +50,8 @@ actual class FtpConnectionProvider : FtpProvider {
             if (client.login(options.getUsername(), options.getPassword())) {
                 client.right()
             } else {
-                Napier.e("Unable to login/authenticate to FTP server with username: ${options.getUsername()}, code: ${client.replyCode}, message: ${client.replyString}")
+                Napier.e("Unable to login/authenticate to FTP server with username: ${options.getUsername()}," +
+                    " code: ${client.replyCode}, message: ${client.replyString}")
                 AuthenticationFailed.forLogin(options.getUsername(), client.replyCode, client.replyString).left()
             }
         } catch (e: IOException) {
