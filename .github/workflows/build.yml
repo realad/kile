@@ -13,8 +13,13 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
+        jdk: [11]
 
     runs-on: ${{matrix.os}}
+
+    env:
+      JDK_VERSION:  ${{ matrix.jdk }}
+      GRADLE_OPTS: -Dorg.gradle.configureondemand=true -Dorg.gradle.parallel=true -Dorg.gradle.daemon=false -Dkotlin.incremental=false -Dorg.gradle.jvmargs="-Xmx3g -XX:MaxPermSize=2048m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8"
 
     steps:
       - name: Checkout the repo
@@ -22,7 +27,12 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Run ubuntu tests
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.jdk }}
+
+      - name: Run ubuntu tests and generate reports
         if: matrix.os == 'ubuntu-latest'
         run: ./gradlew detekt allTests jacocoReport
 
@@ -32,6 +42,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-env:
-  GRADLE_OPTS: -Dorg.gradle.configureondemand=true -Dorg.gradle.parallel=true -Dorg.gradle.daemon=false -Dkotlin.incremental=false -Dorg.gradle.jvmargs="-Xmx3g -XX:MaxPermSize=2048m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8"
