@@ -1,0 +1,47 @@
+name: Code Quality Report
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  gradle:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        jdk: [11]
+    runs-on: ${{ matrix.os }}
+    if: ${{ !contains(github.event.head_commit.message, 'coverage skip') }}
+    env:
+      JDK_VERSION:  ${{ matrix.jdk }}
+      GRADLE_OPTS: -Dorg.gradle.daemon=false
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.jdk }}
+
+      - name: Generate Detekt Report
+        run: ./gradlew detekt -Dorg.gradle.caching=false
+
+      - name: Generate Coverage Report
+        run: ./gradlew jacocoTestReport -Dorg.gradle.caching=false
+
+      - name: Publish SonarQuber Report
+        if: success()
+        run: ./gradlew sonarqube -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=${SONAR_TOKEN}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Publish Coverage
+        if: success()
+        run: bash <(curl -s https://codecov.io/bash)
+        shell: bash

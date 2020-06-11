@@ -1,0 +1,71 @@
+name: Pre Merge Checks
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  gradle:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        jdk: [8, 11, 14]
+    runs-on: ${{matrix.os}}
+    if: ${{ !contains(github.event.head_commit.message, 'ci skip') }}
+    env:
+      # We compile the test snippets only on Java 8.
+      COMPILE_TEST_SNIPPETS: ${{ matrix.os == 'ubuntu-latest' && matrix.jdk == 8 }}
+      JDK_VERSION: ${{ matrix.jdk }}
+      GRADLE_OPTS: -Dorg.gradle.daemon=false -Dorg.gradle.parallel=true -Dkotlin.incremental=false
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # Let's cleanup the gradle cache folders to make sure
+      # we don't accidentally cache stale files.
+      - name: Cleanup Gradle Folders
+        shell: bash
+        run: |
+          rm -rf ~/.gradle/caches/ && \
+          rm -rf ~/.gradle/wrapper/
+
+      - name: Cache Gradle Caches
+        uses: actions/cache@v2
+        with:
+          path: ~/.gradle/caches/
+          key: cache-clean-gradle-${{ matrix.os }}-${{ matrix.jdk }}
+
+      - name: Cache Gradle Wrapper
+        uses: actions/cache@v2
+        with:
+          path: ~/.gradle/wrapper/
+          key: cache-clean-wrapper-${{ matrix.os }}-${{ matrix.jdk }}
+
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.jdk }}
+
+      - name: Run tests (UNIX)
+        if: matrix.os == 'macos-latest' || matrix.os == 'ubuntu-latest'
+        run: ./gradlew allTests
+
+      - name: Run tests (WIN)
+        if: matrix.os == 'windows-latest'
+        run: ./gradlew allTests
+
+      - name: Bundle the build report
+        if: failure()
+        run: find . -type d -name 'reports' | zip -@ -r build-reports.zip
+
+      - name: Upload the build report
+        if: failure()
+        uses: actions/upload-artifact@master
+        with:
+          name: error-report
+          path: build-reports.zip

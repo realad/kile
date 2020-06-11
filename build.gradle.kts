@@ -20,7 +20,7 @@ sonarqube {
         property("sonar.organization", "realad")
         property("sonar.projectKey", "io.realad.kile")
         property("sonar.java.coveragePlugin", "jacoco")
-        property("sonar.coverage.jacoco.xmlReportPaths", "$buildDir/reports/jacoco/jacocoReport/jacocoReport.xml")
+        property("sonar.coverage.jacoco.xmlReportPaths", "$buildDir/reports/jacoco/jacocoTestReport/jacocoTestReport.xml")
         property("sonar.kotlin.detekt.reportPaths", "$buildDir/reports/detekt/detekt.xml")
     }
 }
@@ -33,7 +33,7 @@ tasks {
     }
 
     // Inspired by https://docs.gradle.org/6.5/samples/sample_jvm_multi_project_with_code_coverage.html
-    val jacocoReport by register<JacocoReport>("jacocoReport") {
+    val jacocoTestReport by register<JacocoReport>("jacocoTestReport") {
         val excludes = listOf("**/*Test*.*")
         val sourceDirs = arrayListOf<Any>()
         val classDirs = arrayListOf<Any>()
@@ -48,7 +48,7 @@ tasks {
                 classDirs.add(fileTree("${subproject.buildDir}/classes/kotlin/jvm/").exclude(excludes))
                 executionDataDirs.add(fileTree("${subproject.buildDir}/jacoco/").include("*.exec"))
                 subproject.tasks.matching { it.extensions.findByType<JacocoTaskExtension>() != null }.forEach {
-                    rootProject.tasks["jacocoReport"].dependsOn(it)
+                    rootProject.tasks["jacocoTestReport"].dependsOn(it)
                 }
             }
         sourceDirectories.setFrom(files(sourceDirs))
