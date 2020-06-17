@@ -1,8 +1,3 @@
-plugins {
-    jacoco
-    kotlin("multiplatform")
-}
-
 repositories {
     mavenCentral()
 }
@@ -18,6 +13,14 @@ kotlin {
                 kotlinOptions {
                     jvmTarget = "1.8"
                 }
+            }
+        }
+    }
+
+    targets.all {
+        compilations.all {
+            kotlinOptions {
+                freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlin.RequiresOptIn"
             }
         }
     }
@@ -55,6 +58,7 @@ kotlin {
             dependsOn(commonMain)
             dependencies {
                 implementation(kotlin("stdlib-jdk8"))
+                implementation(kotlin("reflect"))
             }
         }
 
@@ -86,3 +90,5 @@ tasks {
         useJUnitPlatform()
     }
 }
+
+apply(plugin = "publish-mpp")
