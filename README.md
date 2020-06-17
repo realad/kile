@@ -1,6 +1,6 @@
-# kile
+# Kile
 
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/RealAd/kile/Build)](https://github.com/RealAd/kile/actions?query=workflow%3ABuild)
+[![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/RealAd/kile/Deploy%20Snapshot/master)](https://github.com/RealAd/kile/actions?query=workflow%3A%22Deploy+Snapshot%22)
 [![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/RealAd/kile?include_prereleases)](https://github.com/RealAd/kile/releases)
 [![GitHub](https://img.shields.io/github/license/RealAd/kile)](https://github.com/RealAd/kile/blob/master/LICENSE)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=io.realad.kile&metric=alert_status)](https://sonarcloud.io/dashboard?id=io.realad.kile)
