@@ -13,7 +13,7 @@ object Ci {
         number
     }
 
-    private const val releaseVersion = "0.0.0"
-    private val snapshotVersion = lazy { "0.0.0.${githubBuildNumber}-SNAPSHOT" }
+    private const val releaseVersion = "0.0.1"
+    private val snapshotVersion = lazy { "$releaseVersion.${githubBuildNumber}-SNAPSHOT" }
     val publishVersion = lazy { if (isReleaseVersion) releaseVersion else snapshotVersion.value }
 }
