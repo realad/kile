@@ -1,8 +1,3 @@
-plugins {
-    jacoco
-    kotlin("multiplatform")
-}
-
 repositories {
     mavenCentral()
 }
@@ -21,6 +16,15 @@ kotlin {
             }
         }
     }
+
+    targets.all {
+        compilations.all {
+            kotlinOptions {
+                freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlin.RequiresOptIn"
+            }
+        }
+    }
+
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -91,3 +95,5 @@ tasks {
         useJUnitPlatform()
     }
 }
+
+apply(plugin = "publish-mpp")
