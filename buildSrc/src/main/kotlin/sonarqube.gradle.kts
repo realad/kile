@@ -31,7 +31,8 @@ subprojects {
             property(
                 "sonar.exclusions", "**/jsMain/**,**/jsTest/**," +
                     "**/src/commonMain/kotlin/io/realad/kile/adapters/ftp/FtpConnectionOptions.kt," +
-                    "**/src/commonMain/kotlin/io/realad/kile/adapters/ftp/FtpConnectionProvider.kt"
+                    "**/src/commonMain/kotlin/io/realad/kile/adapters/ftp/FtpConnectionProvider.kt," +
+                    "**/src/commonMain/kotlin/io/realad/kile/adapters/local/FileUtils.kt"
             )
             property("sonar.kotlin.detekt.reportPaths", "${subproject.buildDir}/reports/detekt/detekt.xml")
         }

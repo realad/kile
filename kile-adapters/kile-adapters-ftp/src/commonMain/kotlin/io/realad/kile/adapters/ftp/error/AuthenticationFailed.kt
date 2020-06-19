@@ -1,6 +1,6 @@
 package io.realad.kile.adapters.ftp.error
 
-import io.realad.kile.error.FilesystemError
+import io.realad.kile.common.error.FilesystemError
 
 class AuthenticationFailed private constructor(
     message: String,

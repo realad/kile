@@ -12,6 +12,11 @@ import io.realad.kile.fp.Either
 import org.apache.commons.net.ftp.FTPClient
 import java.io.IOException
 
+/**
+ * Test case for the FtpConnectionProvider class.
+ *
+ * @see FtpConnectionProvider
+ */
 class FtpConnectionProviderTest : StringSpec({
 
     beforeTest {

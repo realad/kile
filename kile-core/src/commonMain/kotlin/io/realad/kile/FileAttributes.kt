@@ -1,5 +1,8 @@
 package io.realad.kile
 
+/**
+ * Attributes of the file.
+ */
 class FileAttributes(
     private val path: String,
     private val fileSize: Long?

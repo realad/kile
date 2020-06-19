@@ -3,7 +3,7 @@ package io.realad.kile.adapters.ftp
 import com.github.aakira.napier.Napier
 import io.realad.kile.adapters.ftp.error.AuthenticationFailed
 import io.realad.kile.adapters.ftp.error.ConnectToFtpHostFailed
-import io.realad.kile.error.FilesystemError
+import io.realad.kile.common.error.FilesystemError
 import io.realad.kile.fp.Either
 import io.realad.kile.fp.left
 import io.realad.kile.fp.right

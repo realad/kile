@@ -1,12 +1,29 @@
 package io.realad.kile.fp
 
+/**
+ * Represents a value of one of two possible types (a disjoint union).
+ * Instances of [Either] are either an instance of [Left] or [Right].
+ * FP Convention dictates that [Left] is used for "failure"
+ * and [Right] is used for "success".
+ *
+ * @see Left
+ * @see Right
+ */
 sealed class Either<out L, out R> {
 
     internal abstract val isThisLeft: Boolean
     internal abstract val isThisRight: Boolean
 
+    /**
+     * Returns true if this is a Left, false otherwise.
+     * @see Left
+     */
     fun isLeft(): Boolean = isThisLeft
 
+    /**
+     * Returns true if this is a Right, false otherwise.
+     * @see Right
+     */
     fun isRight(): Boolean = isThisRight
 
     /**
@@ -44,6 +61,14 @@ sealed class Either<out L, out R> {
 
 }
 
+/**
+ * Creates a Left type.
+ * @see Either.Left
+ */
 fun <A> A.left(): Either<A, Nothing> = Either.left(this)
 
+/**
+ * Creates a Left type.
+ * @see Either.Right
+ */
 fun <A> A.right(): Either<Nothing, A> = Either.right(this)

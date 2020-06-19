@@ -9,6 +9,11 @@ import org.mockftpserver.fake.filesystem.DirectoryEntry
 import org.mockftpserver.fake.filesystem.FileEntry
 import org.mockftpserver.fake.filesystem.UnixFakeFileSystem
 
+/**
+ * Test case for the ApacheFtpConnection class.
+ *
+ * @see ApacheFtpConnection
+ */
 class ApacheFtpConnectionTest : StringSpec({
 
     val username = "wasya"

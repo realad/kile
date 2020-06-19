@@ -1,4 +1,4 @@
-package io.realad.kile.error
+package io.realad.kile.common.error
 
 open class FilesystemError(
     private val message: String,

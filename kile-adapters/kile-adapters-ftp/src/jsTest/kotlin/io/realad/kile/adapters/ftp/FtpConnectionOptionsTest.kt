@@ -3,6 +3,11 @@ package io.realad.kile.adapters.ftp
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 
+/**
+ * Test case for the FtpConnectionOptions class.
+ *
+ * @see FtpConnectionOptions
+ */
 class FtpConnectionOptionsTest: StringSpec({
 
     "should return the same host as specified" {

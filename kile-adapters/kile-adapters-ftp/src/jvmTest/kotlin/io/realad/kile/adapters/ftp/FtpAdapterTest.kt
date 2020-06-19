@@ -5,11 +5,16 @@ import io.kotest.matchers.collections.shouldContainExactly
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.mockk.*
-import io.realad.kile.error.FilesystemError
+import io.realad.kile.common.error.FilesystemError
 import io.realad.kile.fp.Either
 import io.realad.kile.fp.left
 import io.realad.kile.fp.right
 
+/**
+ * Test case for the FtpAdapter class.
+ *
+ * @see FtpAdapter
+ */
 class FtpAdapterTest : StringSpec({
 
     lateinit var options: FtpOptions

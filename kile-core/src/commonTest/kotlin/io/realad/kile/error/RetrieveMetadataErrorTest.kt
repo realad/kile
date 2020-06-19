@@ -1,11 +1,10 @@
-package io.realad.kile
+package io.realad.kile.error
 
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
-import io.realad.kile.error.FilesystemError
-import io.realad.kile.error.FilesystemOperationError
-import io.realad.kile.error.RetrieveMetadataError
+import io.realad.kile.FileAttributes
+import io.realad.kile.common.error.FilesystemError
 
 class RetrieveMetadataErrorTest : StringSpec({
 
