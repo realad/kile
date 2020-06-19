@@ -3,6 +3,11 @@ package io.realad.kile
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 
+/**
+ * Test case for the FileAttributes class.
+ *
+ * @see FileAttributes
+ */
 class FileAttributesTest : StringSpec({
 
     "should return the same attributes with a null file size" {

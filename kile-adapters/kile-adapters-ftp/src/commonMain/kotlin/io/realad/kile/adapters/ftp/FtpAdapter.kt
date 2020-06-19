@@ -1,11 +1,14 @@
 package io.realad.kile.adapters.ftp
 
-import io.realad.kile.KileAdapter
-import io.realad.kile.error.FilesystemError
+import io.realad.kile.adapters.KileAdapter
+import io.realad.kile.common.error.FilesystemError
 import io.realad.kile.fp.Either
 import io.realad.kile.fp.left
 import io.realad.kile.fp.right
 
+/**
+ * An adapter for accessing the file system via FTP.
+ */
 class FtpAdapter(
     private val ftpOptions: FtpOptions,
     private val ftpProvider: FtpProvider
@@ -43,12 +46,18 @@ class FtpAdapter(
         previous: Either.Left<FilesystemError>?
     ): Either<FilesystemError, FtpConnection> = current.apply { l.apply { setPrevious(previous?.l) } }
 
+    /**
+     * Function for displaying catalogs and content.
+     */
     override fun listContents(path: String): Either<FilesystemError, List<String>> =
         when (val either = getConnection()) {
             is Either.Left -> either.l.left()
             is Either.Right -> either.r.mlistDir(path).right()
         }
 
+    /**
+     * Function to check if a file exists.
+     */
     override fun fileExists(location: String): Either<FilesystemError, Boolean> {
         TODO("Not yet implemented")
     }

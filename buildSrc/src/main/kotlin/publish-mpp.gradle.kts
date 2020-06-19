@@ -1,6 +1,6 @@
 apply {
-    plugin("java")
-    plugin("java-library")
+//    plugin("java")
+//    plugin("java-library")
     plugin("signing")
     plugin("maven-publish")
 }

@@ -6,8 +6,15 @@ import io.mockk.confirmVerified
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
+import io.realad.kile.adapters.KileAdapter
+import io.realad.kile.fp.Either
 import io.realad.kile.fp.right
 
+/**
+ * Test case for the Kile class.
+ *
+ * @see Kile
+ */
 class KileTest : StringSpec({
 
     lateinit var adapter: KileAdapter

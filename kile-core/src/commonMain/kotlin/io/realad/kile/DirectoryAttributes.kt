@@ -1,5 +1,8 @@
 package io.realad.kile
 
+/**
+ * Attributes of the directory.
+ */
 class DirectoryAttributes(
     private val path: String
 ) : StorageAttributes {
