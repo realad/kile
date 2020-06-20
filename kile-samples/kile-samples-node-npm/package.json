@@ -1,0 +1,11 @@
+{
+    "name": "kile-samples-node-npm",
+    "version": "1.0.0",
+    "scripts": {
+        "app": "node src/app.js"
+    },
+    "dependencies": {
+        "kile": "file:../../build/js"
+    },
+    "devDependencies": {}
+}
