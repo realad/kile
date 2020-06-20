@@ -1,0 +1,33 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.3.72'
+    id 'maven'
+}
+
+group 'io.realad.kile.samples'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    jcenter()
+    maven {
+        url = uri("https://maven.pkg.github.com/realad/kile")
+        credentials {
+            username = System.getenv("GITHUB_USERNAME")
+            password = System.getenv("GITHUB_ACCESS_TOKEN")
+        }
+    }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    implementation "io.realad.kile:kile-core:0.0.1"
+    implementation "io.realad.kile:kile-adapters-ftp:0.0.1"
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
