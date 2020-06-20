@@ -1,6 +1,4 @@
 apply {
-//    plugin("java")
-//    plugin("java-library")
     plugin("signing")
     plugin("maven-publish")
 }
@@ -24,7 +22,7 @@ val publications: PublicationContainer = (extensions.getByName("publishing") as 
 
 signing {
     useGpgCmd()
-    if (Ci.isReleaseVersion)
+    if (Ci.isThisBuildForRelease)
         sign(publications)
 }
 
@@ -42,7 +40,7 @@ publishing {
             val releasesRepoUrl = "https://maven.pkg.github.com/RealAd/kile"
             val snapshotsRepoUrl = "https://maven.pkg.github.com/RealAd/kile"
             name = "GitHubPackages"
-            url = uri(if (Ci.isReleaseVersion) releasesRepoUrl else snapshotsRepoUrl)
+            url = uri(if (Ci.isThisBuildForRelease) releasesRepoUrl else snapshotsRepoUrl)
             credentials {
                 username = System.getenv("REPOSITORY_USERNAME") ?: repositoryUsername
                 password = System.getenv("REPOSITORY_PASSWORD") ?: repositoryPassword

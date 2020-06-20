@@ -41,3 +41,4 @@ build
 
 # Other
 .idea/$CACHE_FILE$
+**/.DS_Store

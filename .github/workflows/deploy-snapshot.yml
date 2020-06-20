@@ -14,6 +14,11 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Set env with number of commits since the last tag
+        run:  echo ::set-env name=NUMBER_OF_COMMITS_SINCE_LAST_TAG::$(git rev-list --count $(git describe --tags $(git rev-list --tags --max-count=1)))
 
       - name: Cache Gradle Folders
         uses: actions/cache@v2
@@ -30,13 +35,9 @@ jobs:
         with:
           java-version: 8
 
-      - name: Build kile
-        run: ./gradlew build --build-cache --parallel -PwarningsAsErrors=true
-
       - name: Deploy Snapshot to Github Packages
         if: ${{ github.repository == 'RealAd/kile'}}
         env:
           REPOSITORY_USERNAME: $GITHUB_ACTOR
           REPOSITORY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          ./gradlew publish --stacktrace
+        run: ./gradlew build publish --stacktrace --build-cache --parallel -PwarningsAsErrors=true
