@@ -13,7 +13,12 @@ object Ci {
         number
     }
 
-    private const val releaseVersion = "0.0.1"
-    private val snapshotVersion = lazy { "$releaseVersion.${githubBuildNumber}-SNAPSHOT" }
+    private val numberOfCommitsSinceLastTag = lazy {
+        Runtime.getRuntime().exec("git rev-list --count \$(git describe --tags \$(git rev-list --tags --max-count=1))")
+        System.`in`.bufferedReader().read()
+    }
+
+    private const val releaseVersion = "0.0.2"
+    private val snapshotVersion = lazy { "$releaseVersion.$numberOfCommitsSinceLastTag-SNAPSHOT" }
     val publishVersion = lazy { if (isReleaseVersion) releaseVersion else snapshotVersion.value }
 }
