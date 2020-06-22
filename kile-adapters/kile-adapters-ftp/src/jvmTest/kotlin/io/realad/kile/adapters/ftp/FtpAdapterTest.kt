@@ -4,8 +4,12 @@ import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.collections.shouldContainExactly
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
-import io.mockk.*
-import io.realad.kile.common.error.FilesystemError
+import io.mockk.confirmVerified
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.verify
+import io.realad.kile.DirectoryAttributes
+import io.realad.kile.error.FilesystemError
 import io.realad.kile.fp.Either
 import io.realad.kile.fp.left
 import io.realad.kile.fp.right
@@ -31,7 +35,7 @@ class FtpAdapterTest : StringSpec({
 
     "should return a list of the directory contents returned from connection without reconnection" {
         val location = "/root/test"
-        val listDirectoryResult = listOf("one", "two", "three")
+        val listDirectoryResult = listOf("one", "two", "three").map { DirectoryAttributes(it) }
         every { provider.getConnection(any()) } returns connection.right()
         every { connection.mlistDir(any()) } returns listDirectoryResult
         val response = adapter.listContents(location)
@@ -47,7 +51,7 @@ class FtpAdapterTest : StringSpec({
 
     "should return a list of the directory contents returned from connection with a single reconnection" {
         val location = "/root/test"
-        val listDirectoryResult = listOf("one", "two", "three")
+        val listDirectoryResult = listOf("one", "two", "three").map { DirectoryAttributes(it) }
         every { provider.getConnection(any()) } returns FilesystemError("hello error").left() andThen
             connection.right()
         every { connection.mlistDir(any()) } returns listDirectoryResult
@@ -64,7 +68,7 @@ class FtpAdapterTest : StringSpec({
 
     "should return a list of the directory contents returned from connection with a triple reconnection" {
         val location = "/root/test"
-        val listDirectoryResult = listOf("one", "two", "three")
+        val listDirectoryResult = listOf("one", "two", "three").map { DirectoryAttributes(it) }
         every { provider.getConnection(any()) } returns FilesystemError("hello error").left() andThen
             FilesystemError("hello error").left() andThen connection.right()
         every { connection.mlistDir(any()) } returns listDirectoryResult
@@ -81,7 +85,7 @@ class FtpAdapterTest : StringSpec({
 
     "should return an error after more than three reconnections" {
         val location = "/root/test"
-        val listDirectoryResult = listOf("one", "two", "three")
+        val listDirectoryResult = listOf("one", "two", "three").map { DirectoryAttributes(it) }
         every { provider.getConnection(any()) } returns FilesystemError("hello error").left() andThen
             FilesystemError("hello error").left() andThen FilesystemError("hello error").left()
         every { connection.mlistDir(any()) } returns listDirectoryResult
@@ -99,7 +103,7 @@ class FtpAdapterTest : StringSpec({
 
     "should return a list of directory contents with a single reconnection and then return the list successfully" {
         val location = "/root/test"
-        val listDirectoryResult = listOf("one", "two", "three")
+        val listDirectoryResult = listOf("one", "two", "three").map { DirectoryAttributes(it) }
         every { provider.getConnection(any()) } returns FilesystemError("hello error").left() andThen
             connection.right()
         every { connection.mlistDir(any()) } returns listDirectoryResult

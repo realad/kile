@@ -1,7 +1,6 @@
 package io.realad.kile.error
 
 import io.realad.kile.FileAttributes
-import io.realad.kile.common.error.FilesystemError
 
 /**
  * Error retrieving file or directory metadata.

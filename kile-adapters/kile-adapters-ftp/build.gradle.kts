@@ -29,8 +29,6 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-common"))
-                implementation(project(Projects.KileCommon))
-                implementation(project(Projects.KileCore))
                 implementation(project(Projects.KileAdapters))
             }
         }
@@ -45,7 +43,6 @@ kotlin {
             dependsOn(commonMain)
             dependencies {
                 implementation(kotlin("stdlib-js"))
-                implementation(Libs.Napier.js)
                 implementation(npm("ftp"))
             }
         }
@@ -63,7 +60,6 @@ kotlin {
             dependencies {
                 implementation(kotlin("stdlib-jdk8"))
                 implementation(Libs.ApacheCommons.net)
-                implementation(Libs.Napier.jvm)
             }
         }
 

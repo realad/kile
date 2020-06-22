@@ -29,8 +29,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(kotlin("stdlib-common"))
-                implementation(project(Projects.KileCommon))
-                implementation(project(Projects.KileFp))
+                api(project(Projects.KileCore))
             }
         }
 

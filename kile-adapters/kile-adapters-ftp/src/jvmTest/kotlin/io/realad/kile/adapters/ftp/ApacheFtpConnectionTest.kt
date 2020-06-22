@@ -1,7 +1,9 @@
 package io.realad.kile.adapters.ftp
 
 import io.kotest.core.spec.style.StringSpec
-import io.kotest.matchers.collections.shouldContainExactly
+import io.kotest.matchers.collections.shouldContain
+import io.kotest.matchers.collections.shouldHaveSize
+import io.realad.kile.DirectoryAttributes
 import org.apache.commons.net.ftp.FTPClient
 import org.mockftpserver.fake.FakeFtpServer
 import org.mockftpserver.fake.UserAccount
@@ -36,6 +38,7 @@ class ApacheFtpConnectionTest : StringSpec({
                 add(FileEntry("$homeDirectory/pin.txt", "my new pin code from primary credit card is 0000"))
                 add(FileEntry("$homeDirectory/number.txt", "my credit card number is 0000 9999 8888 7777"))
                 add(FileEntry("$homeDirectory/cvv.txt", "my credit card cvv code is 777"))
+                add(DirectoryEntry("$homeDirectory/other"))
             }
         }
         fakeFtpServer.start()
@@ -44,7 +47,13 @@ class ApacheFtpConnectionTest : StringSpec({
     "should return a list of files" {
         val connection = ApacheFtpConnection(ftpClient)
         val result = connection.mlistDir(homeDirectory)
-        result shouldContainExactly listOf("pin.txt", "number.txt", "cvv.txt")
+        result shouldHaveSize 4
+    }
+
+    "should return a one directory from list" {
+        val connection = ApacheFtpConnection(ftpClient)
+        val result = connection.mlistDir(homeDirectory)
+        result shouldContain DirectoryAttributes("$homeDirectory/other")
     }
 
     afterSpec {

@@ -6,8 +6,6 @@ import io.mockk.confirmVerified
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import io.realad.kile.adapters.KileAdapter
-import io.realad.kile.fp.Either
 import io.realad.kile.fp.right
 
 /**
@@ -43,7 +41,7 @@ class KileTest : StringSpec({
 
     "listContent should return list if the adapter returns list" {
         val location = "/root/test"
-        val list = listOf("one", "two", "three")
+        val list = listOf("one", "two", "three").map { DirectoryAttributes(it) }
         every { adapter.listContents(location) } returns list.right()
         kile.listContents(location) shouldBe list.right()
         verify(exactly = 1) { adapter.listContents(location) }

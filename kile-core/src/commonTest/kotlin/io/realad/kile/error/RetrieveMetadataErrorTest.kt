@@ -4,7 +4,6 @@ import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.realad.kile.FileAttributes
-import io.realad.kile.common.error.FilesystemError
 
 class RetrieveMetadataErrorTest : StringSpec({
 
