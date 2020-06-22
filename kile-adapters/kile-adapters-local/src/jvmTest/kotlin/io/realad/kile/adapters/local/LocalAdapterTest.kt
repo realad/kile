@@ -8,7 +8,8 @@ import io.mockk.confirmVerified
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import io.realad.kile.common.error.FilesystemError
+import io.realad.kile.DirectoryAttributes
+import io.realad.kile.error.FilesystemError
 import io.realad.kile.fp.Either
 import io.realad.kile.fp.left
 import io.realad.kile.fp.right
@@ -30,7 +31,7 @@ class LocalAdapterTest : StringSpec({
 
     "should return a list of the directory contents returned from file utils" {
         val location = "/root/test"
-        val listDirectoryResult = listOf("one", "two", "three")
+        val listDirectoryResult = listOf("one", "two", "three").map { DirectoryAttributes(it) }
         every { fileUtils.listContents(any()) } returns listDirectoryResult.right()
         val response = adapter.listContents(location)
         response.isLeft() shouldBe false

@@ -14,7 +14,7 @@ class FileAttributesTest : StringSpec({
         val path = "/root/test"
         val fileSize = null
         val attributes = FileAttributes(path, fileSize)
-        attributes.getType() shouldBe StorageAttributes.Type.FILE
+        attributes.getType() shouldBe KileAttributes.Type.FILE
         attributes.getPath() shouldBe path
         attributes.getFileSize() shouldBe null
     }
@@ -23,7 +23,7 @@ class FileAttributesTest : StringSpec({
         val path = "/root/test"
         val fileSize = 123L
         val attributes = FileAttributes(path, fileSize)
-        attributes.getType() shouldBe StorageAttributes.Type.FILE
+        attributes.getType() shouldBe KileAttributes.Type.FILE
         attributes.getPath() shouldBe path
         attributes.getFileSize() shouldBe fileSize
     }

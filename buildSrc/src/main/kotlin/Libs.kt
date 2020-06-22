@@ -1,12 +1,5 @@
 object Libs {
 
-    object Napier {
-        private const val version = "1.3.0"
-        const val common = "com.github.aakira:napier:$version"
-        const val jvm = "com.github.aakira:napier-jvm:$version"
-        const val js = "com.github.aakira:napier-js:$version"
-    }
-
     object Kotest {
         private const val version = "4.0.5"
         const val core = "io.kotest:kotest-core:$version"
@@ -25,8 +18,10 @@ object Libs {
     }
 
     object ApacheCommons {
-        private const val version = "3.6"
-        const val net = "commons-net:commons-net:$version"
+        private const val netVersion = "3.6"
+        private const val ioVersion = "2.7"
+        const val net = "commons-net:commons-net:$netVersion"
+        const val io = "commons-io:commons-io:$ioVersion"
     }
 
 }

@@ -1,6 +1,5 @@
 rootProject.name = "kile"
 
-include("kile-common")
 include("kile-fp")
 include("kile-core")
 include("kile-adapters")

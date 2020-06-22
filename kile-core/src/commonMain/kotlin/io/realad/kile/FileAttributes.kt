@@ -3,19 +3,19 @@ package io.realad.kile
 /**
  * Attributes of the file.
  */
-class FileAttributes(
+data class FileAttributes(
     private val path: String,
     private val fileSize: Long?
-) : StorageAttributes {
+) : KileAttributes {
 
     enum class Attribute {
         PATH, FILE_SIZE
     }
 
-    fun getFileSize(): Long? = fileSize
+    fun getFileSize() = fileSize
 
-    override fun getPath(): String = path
+    override fun getPath() = path
 
-    override fun getType(): StorageAttributes.Type = StorageAttributes.Type.FILE
+    override fun getType() = KileAttributes.Type.FILE
 
 }

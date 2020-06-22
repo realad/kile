@@ -3,8 +3,7 @@ package io.realad.kile.adapters.ftp.error
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
-import io.realad.kile.adapters.ftp.FtpConnectionOptions
-import io.realad.kile.common.error.FilesystemError
+import io.realad.kile.error.FilesystemError
 
 /**
  * Test case for the AuthenticationFailed class.

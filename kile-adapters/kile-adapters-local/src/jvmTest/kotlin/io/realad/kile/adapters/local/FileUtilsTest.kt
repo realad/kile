@@ -1,5 +1,6 @@
 package io.realad.kile.adapters.local
 
+import io.kotest.assertions.throwables.shouldNotThrow
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.StringSpec
 
@@ -11,8 +12,8 @@ import io.kotest.core.spec.style.StringSpec
 class FileUtilsTest : StringSpec({
 
     "should throw not implemented error when calling listContents" {
-        shouldThrow<NotImplementedError> {
-            FileUtils().listContents("/")
+        shouldNotThrow<NotImplementedError> {
+            FileUtils().listContents("./")
         }
     }
 

@@ -2,7 +2,6 @@ package io.realad.kile.adapters.local
 
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.StringSpec
-import io.realad.kile.common.error.FilesystemError
 
 /**
  * Test case for the FileUtils class.
@@ -13,7 +12,8 @@ class FileUtilsTest : StringSpec({
 
     "should throw not implemented error when calling listContents" {
         shouldThrow<NotImplementedError> {
-            FileUtils().listContents("/")
+            val res = FileUtils().listContents("/")
+            res
         }
     }
 

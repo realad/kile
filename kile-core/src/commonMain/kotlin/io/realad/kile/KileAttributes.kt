@@ -3,7 +3,7 @@ package io.realad.kile
 /**
  * Interface for file and directory attributes.
  */
-interface StorageAttributes {
+interface KileAttributes {
 
     enum class Type {
         FILE, DIRECTORY

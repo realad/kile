@@ -1,6 +1,7 @@
 package io.realad.kile.adapters.local
 
-import io.realad.kile.common.error.FilesystemError
+import io.realad.kile.KileAttributes
+import io.realad.kile.error.FilesystemError
 import io.realad.kile.fp.Either
 
 /**
@@ -11,7 +12,7 @@ expect class FileUtils {
     /**
      * Function for displaying catalogs and content.
      */
-    fun listContents(path: String): Either<FilesystemError, List<String>>
+    fun listContents(path: String): Either<FilesystemError, List<KileAttributes>>
 
     /**
      * Function to check if a file exists.

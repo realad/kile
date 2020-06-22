@@ -3,12 +3,12 @@ package io.realad.kile
 /**
  * Attributes of the directory.
  */
-class DirectoryAttributes(
+data class DirectoryAttributes(
     private val path: String
-) : StorageAttributes {
+) : KileAttributes {
 
-    override fun getPath(): String = path
+    override fun getPath() = path
 
-    override fun getType(): StorageAttributes.Type = StorageAttributes.Type.DIRECTORY
+    override fun getType() = KileAttributes.Type.DIRECTORY
 
 }

@@ -1,6 +1,6 @@
 package io.realad.kile.adapters.ftp
 
-import io.realad.kile.common.error.FilesystemError
+import io.realad.kile.error.FilesystemError
 import io.realad.kile.fp.Either
 
 actual class FtpConnectionProvider : FtpProvider {

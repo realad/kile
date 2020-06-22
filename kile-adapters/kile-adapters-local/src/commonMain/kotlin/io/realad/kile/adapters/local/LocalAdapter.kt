@@ -1,7 +1,8 @@
 package io.realad.kile.adapters.local
 
-import io.realad.kile.adapters.KileAdapter
-import io.realad.kile.common.error.FilesystemError
+import io.realad.kile.KileAdapter
+import io.realad.kile.KileAttributes
+import io.realad.kile.error.FilesystemError
 import io.realad.kile.fp.Either
 
 /**
@@ -12,7 +13,7 @@ class LocalAdapter(private val fileUtils: FileUtils): KileAdapter {
     /**
      * Function for displaying catalogs and content.
      */
-    override fun listContents(path: String): Either<FilesystemError, List<String>> {
+    override fun listContents(path: String): Either<FilesystemError, List<KileAttributes>> {
         return fileUtils.listContents(path)
     }
 

@@ -1,4 +1,4 @@
-package io.realad.kile.common.error
+package io.realad.kile.error
 
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe

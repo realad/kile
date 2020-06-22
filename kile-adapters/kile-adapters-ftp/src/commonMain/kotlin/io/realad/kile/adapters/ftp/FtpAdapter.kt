@@ -1,7 +1,8 @@
 package io.realad.kile.adapters.ftp
 
-import io.realad.kile.adapters.KileAdapter
-import io.realad.kile.common.error.FilesystemError
+import io.realad.kile.KileAdapter
+import io.realad.kile.KileAttributes
+import io.realad.kile.error.FilesystemError
 import io.realad.kile.fp.Either
 import io.realad.kile.fp.left
 import io.realad.kile.fp.right
@@ -49,7 +50,7 @@ class FtpAdapter(
     /**
      * Function for displaying catalogs and content.
      */
-    override fun listContents(path: String): Either<FilesystemError, List<String>> =
+    override fun listContents(path: String): Either<FilesystemError, List<KileAttributes>> =
         when (val either = getConnection()) {
             is Either.Left -> either.l.left()
             is Either.Right -> either.r.mlistDir(path).right()
