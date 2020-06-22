@@ -1,5 +1,6 @@
 # Kile
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/496899e1cbfa47499e4e1ccc683b5efe)](https://app.codacy.com/gh/RealAd/Kile?utm_source=github.com&utm_medium=referral&utm_content=RealAd/Kile&utm_campaign=Badge_Grade_Dashboard)
 [![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/RealAd/kile/Deploy%20Snapshot/master)](https://github.com/RealAd/kile/actions?query=workflow%3A%22Deploy+Snapshot%22)
 [![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/RealAd/kile?include_prereleases)](https://github.com/RealAd/kile/releases)
 [![GitHub](https://img.shields.io/github/license/RealAd/kile)](https://github.com/RealAd/kile/blob/master/LICENSE)
