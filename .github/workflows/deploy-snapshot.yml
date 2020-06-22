@@ -18,7 +18,7 @@ jobs:
           fetch-depth: 0
 
       - name: Set env with number of commits since the last tag
-        run:  echo ::set-env name=NUMBER_OF_COMMITS_SINCE_LAST_TAG::$(git rev-list --count $(git describe --tags $(git rev-list --tags --max-count=1)))
+        run:  echo ::set-env name=NUMBER_OF_COMMITS_SINCE_LAST_TAG::$(git describe --tags --first-parent | cut -d- -f2)
 
       - name: Cache Gradle Folders
         uses: actions/cache@v2
