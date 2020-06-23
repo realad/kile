@@ -9,12 +9,8 @@ on:
       - '*'
 
 jobs:
-  gradle:
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        jdk: [11]
-    runs-on: ${{ matrix.os }}
+  code-quality:
+    runs-on: ubuntu-latest
     if: ${{ !contains(github.event.head_commit.message, 'coverage skip') }}
     env:
       JDK_VERSION:  ${{ matrix.jdk }}
@@ -26,7 +22,7 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v1
         with:
-          java-version: ${{ matrix.jdk }}
+          java-version: 11
 
       - name: Generate Detekt Report
         run: ./gradlew detekt -Dorg.gradle.caching=false
