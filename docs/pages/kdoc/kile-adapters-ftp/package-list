@@ -1,0 +1,6 @@
+$dokka.format:jekyll
+$dokka.linkExtension:html
+$dokka.location:io.realad.kile.adapters.ftp.FtpConnectionOptionsio.realad.kile.adapters.ftp/-ftp-connection-options/index.html
+$dokka.location:io.realad.kile.adapters.ftp.FtpConnectionProviderio.realad.kile.adapters.ftp/-ftp-connection-provider/index.html
+io.realad.kile.adapters.ftp
+io.realad.kile.adapters.ftp.error
