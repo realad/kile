@@ -12,26 +12,27 @@ import io.realad.kile.error.FilesystemError
  */
 class AuthenticationFailedTest : StringSpec({
 
+    val username = "wasya"
+    val authFailureReplyCode = 123
+    val authFailureReplyString = "authentication failure"
+    val errorMessage = "hello error"
+    val testPreviousError = FilesystemError(errorMessage)
+
     "should return message for login authentication failure" {
-        val username = "wasya"
-        val replyCode = 123
-        val replyString = "authentication failure"
-        val error = AuthenticationFailed.forLogin(username, replyCode, replyString)
+        val error = AuthenticationFailed.forLogin(username, authFailureReplyCode, authFailureReplyString)
         error.getMessage() shouldBe "Unable to login/authenticate to FTP server with username: $username," +
-            " replyCode: $replyCode, replyString: $replyString"
+            " replyCode: $authFailureReplyCode, replyString: $authFailureReplyString"
         error.getPrevious() shouldBe null
     }
 
     "should return message for login authentication failure and previous error if exists" {
-        val username = "wasya"
-        val replyCode = 123
-        val replyString = "authentication failure"
-        val previousError = FilesystemError("previous error")
-        val error = AuthenticationFailed.forLogin(username, replyCode, replyString, previousError)
+        val error = AuthenticationFailed
+            .forLogin(username, authFailureReplyCode, authFailureReplyString, testPreviousError)
         error.getMessage() shouldBe "Unable to login/authenticate to FTP server with username: $username," +
-            " replyCode: $replyCode, replyString: $replyString"
+            " replyCode: $authFailureReplyCode, replyString: $authFailureReplyString"
         error.getPrevious() shouldNotBe null
-        error.getPrevious()?.getMessage() shouldBe "previous error"
+        error.getPrevious() shouldBe testPreviousError
+        error.getPrevious()?.getMessage() shouldBe errorMessage
     }
 
 })

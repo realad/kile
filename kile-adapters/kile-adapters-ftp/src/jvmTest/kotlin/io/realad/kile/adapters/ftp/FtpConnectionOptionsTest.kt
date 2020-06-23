@@ -10,32 +10,39 @@ import io.kotest.matchers.shouldBe
  */
 class FtpConnectionOptionsTest: StringSpec({
 
+    val testHost = "localhost"
+    val testPortFtp = 21
+    val testPortSftp = 22
+    val testAnonymous = "anonymous"
+    val testUsername = "wasya"
+    val testPassword = "qwerty"
+
     "should return the same host as specified" {
-        FtpConnectionOptions("localhost").getHost() shouldBe "localhost"
+        FtpConnectionOptions(testHost).getHost() shouldBe testHost
     }
 
     "should return a default port, if one is not specified" {
-        FtpConnectionOptions("localhost").getPort() shouldBe 21
+        FtpConnectionOptions(testHost).getPort() shouldBe testPortFtp
     }
 
     "should return the same port, if one is specified" {
-        FtpConnectionOptions("localhost", port = 22).getPort() shouldBe 22
+        FtpConnectionOptions(testHost, port = testPortSftp).getPort() shouldBe testPortSftp
     }
 
     "should return an anonymous username, if one is not specified" {
-        FtpConnectionOptions("localhost").getUsername() shouldBe "anonymous"
+        FtpConnectionOptions(testHost).getUsername() shouldBe testAnonymous
     }
 
     "should return the same username, if one is specified" {
-        FtpConnectionOptions("localhost", username = "wasya").getUsername() shouldBe "wasya"
+        FtpConnectionOptions(testHost, username = testUsername).getUsername() shouldBe testUsername
     }
 
     "should return a null password, if one is not specified" {
-        FtpConnectionOptions("localhost").getPassword() shouldBe null
+        FtpConnectionOptions(testHost).getPassword() shouldBe null
     }
 
     "should return the same password, if one is specified" {
-        FtpConnectionOptions("localhost", password = "qwerty").getPassword() shouldBe "qwerty"
+        FtpConnectionOptions(testHost, password = testPassword).getPassword() shouldBe testPassword
     }
 
 })

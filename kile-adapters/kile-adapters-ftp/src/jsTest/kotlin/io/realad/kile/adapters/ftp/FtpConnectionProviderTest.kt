@@ -10,9 +10,11 @@ import io.kotest.core.spec.style.StringSpec
  */
 class FtpConnectionProviderTest: StringSpec({
 
+    val ftpConnectionOptions = FtpConnectionOptions("localhost")
+
     "should throw not implemented error" {
         shouldThrow<NotImplementedError> {
-            FtpConnectionProvider().getConnection(FtpConnectionOptions("localhost"))
+            FtpConnectionProvider().getConnection(ftpConnectionOptions)
         }
     }
 

@@ -10,13 +10,22 @@ import io.realad.kile.fp.Either
 expect class FileUtils {
 
     /**
-     * Function for displaying catalogs and content.
+     * Returns an array of attributes denoting the files in the
+     * directory denoted by this abstract pathname.
+     *
+     * @return An array of attributes denoting the files and directories
+     * in the directory denoted by the pathname. The array will be empty
+     * if the directory is empty.
      */
-    fun listContents(path: String): Either<FilesystemError, List<KileAttributes>>
+    fun listContents(pathname: String): Either<FilesystemError, List<KileAttributes>>
 
     /**
-     * Function to check if a file exists.
+     * Tests whether the file or directory denoted by this abstract pathname
+     * exists.
+     *
+     * @return {@code true} if and only if the file or directory denoted
+     * by this abstract pathname exists, {@code false} otherwise
      */
-    fun fileExists(location: String): Either<FilesystemError, Boolean>
+    fun fileExists(pathname: String): Either<FilesystemError, Boolean>
 
 }

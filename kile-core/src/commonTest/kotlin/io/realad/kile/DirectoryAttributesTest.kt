@@ -10,11 +10,12 @@ import io.kotest.matchers.shouldBe
  */
 class DirectoryAttributesTest : StringSpec({
 
+    val testLocation = "/root/test"
+
     "should return the same attributes" {
-        val path = "/root/test"
-        val attributes = DirectoryAttributes(path)
+        val attributes = DirectoryAttributes(testLocation)
         attributes.getType() shouldBe KileAttributes.Type.DIRECTORY
-        attributes.getPath() shouldBe path
+        attributes.getPath() shouldBe testLocation
     }
 
 })

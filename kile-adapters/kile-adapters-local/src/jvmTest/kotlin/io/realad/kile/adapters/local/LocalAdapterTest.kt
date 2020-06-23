@@ -21,6 +21,10 @@ import io.realad.kile.fp.right
  */
 class LocalAdapterTest : StringSpec({
 
+    val testLocation = "/root/test"
+    val listOfThreeDirectoryAttributes = listOf("one", "two", "three").map { DirectoryAttributes(it) }
+    val filesystemError = FilesystemError("hello error")
+
     lateinit var fileUtils: FileUtils
     lateinit var adapter: LocalAdapter
 
@@ -30,23 +34,20 @@ class LocalAdapterTest : StringSpec({
     }
 
     "should return a list of the directory contents returned from file utils" {
-        val location = "/root/test"
-        val listDirectoryResult = listOf("one", "two", "three").map { DirectoryAttributes(it) }
-        every { fileUtils.listContents(any()) } returns listDirectoryResult.right()
-        val response = adapter.listContents(location)
+        every { fileUtils.listContents(any()) } returns listOfThreeDirectoryAttributes.right()
+        val response = adapter.listContents(testLocation)
         response.isLeft() shouldBe false
         response.isRight() shouldBe true
         (response as Either.Right).r shouldNotBe null
-        response.r shouldBe listDirectoryResult
-        response.r shouldContainExactly listDirectoryResult
+        response.r shouldBe listOfThreeDirectoryAttributes
+        response.r shouldContainExactly listOfThreeDirectoryAttributes
         verify(exactly = 1) { fileUtils.listContents(any()) }
         confirmVerified(fileUtils)
     }
 
     "should return an error after than file utils return error" {
-        val location = "/root/test"
-        every { fileUtils.listContents(any()) } returns FilesystemError("hello error").left()
-        val response = adapter.listContents(location)
+        every { fileUtils.listContents(any()) } returns filesystemError.left()
+        val response = adapter.listContents(testLocation)
         response.isLeft() shouldBe true
         response.isRight() shouldBe false
         (response as Either.Left).l shouldNotBe null
@@ -56,10 +57,9 @@ class LocalAdapterTest : StringSpec({
     }
 
     "should return a file exists result returned from file utils" {
-        val location = "/root/test"
         val fileExistsResult = true
         every { fileUtils.fileExists(any()) } returns true.right()
-        val response = adapter.fileExists(location)
+        val response = adapter.fileExists(testLocation)
         response.isLeft() shouldBe false
         response.isRight() shouldBe true
         (response as Either.Right).r shouldNotBe null
@@ -69,9 +69,8 @@ class LocalAdapterTest : StringSpec({
     }
 
     "should return an error after than file utils return error after calling file exists" {
-        val location = "/root/test"
-        every { fileUtils.fileExists(any()) } returns FilesystemError("hello error").left()
-        val response = adapter.fileExists(location)
+        every { fileUtils.fileExists(any()) } returns filesystemError.left()
+        val response = adapter.fileExists(testLocation)
         response.isLeft() shouldBe true
         response.isRight() shouldBe false
         (response as Either.Left).l shouldNotBe null

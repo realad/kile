@@ -55,7 +55,16 @@ sealed class Either<out L, out R> {
     }
 
     companion object {
+        /**
+         * Creates a Left type.
+         * @see Either.Left
+         */
         fun <L> left(left: L): Either<L, Nothing> = Left(left)
+
+        /**
+         * Creates a Left type.
+         * @see Either.Right
+         */
         fun <R> right(right: R): Either<Nothing, R> = Right(right)
     }
 

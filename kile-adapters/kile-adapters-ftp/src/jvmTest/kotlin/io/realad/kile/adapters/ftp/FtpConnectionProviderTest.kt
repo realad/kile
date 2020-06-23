@@ -19,6 +19,8 @@ import java.io.IOException
  */
 class FtpConnectionProviderTest : StringSpec({
 
+    val ftpConnectionOptions = FtpConnectionOptions("localhost")
+
     beforeTest {
         mockkConstructor(FTPClient::class)
     }
@@ -27,7 +29,7 @@ class FtpConnectionProviderTest : StringSpec({
         every { anyConstructed<FTPClient>().connect(any<String>(), any()) } returns Unit
         every { anyConstructed<FTPClient>().replyCode } returns 200
         every { anyConstructed<FTPClient>().login(any(), any()) } returns true
-        val either = FtpConnectionProvider().getConnection(FtpConnectionOptions("localhost"))
+        val either = FtpConnectionProvider().getConnection(ftpConnectionOptions)
         either.isLeft() shouldBe false
         either.isRight() shouldBe true
         (either as Either.Right).r shouldNotBe null
@@ -36,7 +38,7 @@ class FtpConnectionProviderTest : StringSpec({
 
     "should return the connect to ftp host failed if connect returns an io exception" {
         every { anyConstructed<FTPClient>().connect(any<String>(), any()) } throws IOException("hello exception")
-        val either = FtpConnectionProvider().getConnection(FtpConnectionOptions("localhost"))
+        val either = FtpConnectionProvider().getConnection(ftpConnectionOptions)
         either.isLeft() shouldBe true
         either.isRight() shouldBe false
         (either as Either.Left).l shouldNotBe null
@@ -46,7 +48,7 @@ class FtpConnectionProviderTest : StringSpec({
     "should return the connect to ftp host failed if connect returns a not positive response code" {
         every { anyConstructed<FTPClient>().connect(any<String>(), any()) } returns Unit
         every { anyConstructed<FTPClient>().replyCode } returns 301
-        val either = FtpConnectionProvider().getConnection(FtpConnectionOptions("localhost"))
+        val either = FtpConnectionProvider().getConnection(ftpConnectionOptions)
         either.isLeft() shouldBe true
         either.isRight() shouldBe false
         (either as Either.Left).l shouldNotBe null
@@ -58,7 +60,7 @@ class FtpConnectionProviderTest : StringSpec({
         every { anyConstructed<FTPClient>().replyCode } returns 200
         every { anyConstructed<FTPClient>().replyString } returns "everything is fine"
         every { anyConstructed<FTPClient>().login(any(), any()) } returns false
-        val either = FtpConnectionProvider().getConnection(FtpConnectionOptions("localhost"))
+        val either = FtpConnectionProvider().getConnection(ftpConnectionOptions)
         either.isLeft() shouldBe true
         either.isRight() shouldBe false
         (either as Either.Left).l shouldNotBe null
@@ -70,7 +72,7 @@ class FtpConnectionProviderTest : StringSpec({
         every { anyConstructed<FTPClient>().replyCode } returns 200 andThen 301
         every { anyConstructed<FTPClient>().replyString } returns "everything is fine" andThen "something went wrong"
         every { anyConstructed<FTPClient>().login(any(), any()) } throws IOException("hello exception")
-        val either = FtpConnectionProvider().getConnection(FtpConnectionOptions("localhost"))
+        val either = FtpConnectionProvider().getConnection(ftpConnectionOptions)
         either.isLeft() shouldBe true
         either.isRight() shouldBe false
         (either as Either.Left).l shouldNotBe null
