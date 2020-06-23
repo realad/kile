@@ -1,0 +1,5 @@
+$dokka.format:jekyll
+$dokka.linkExtension:html
+
+io.realad.kile
+io.realad.kile.error
