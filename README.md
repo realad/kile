@@ -5,6 +5,10 @@
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=io.realad.kile&metric=alert_status)](https://sonarcloud.io/dashboard?id=io.realad.kile)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/496899e1cbfa47499e4e1ccc683b5efe)](https://app.codacy.com/gh/RealAd/Kile?utm_source=github.com&utm_medium=referral&utm_content=RealAd/Kile&utm_campaign=Badge_Grade_Dashboard)
 [![codecov](https://codecov.io/gh/RealAd/Kile/branch/master/graph/badge.svg)](https://codecov.io/gh/RealAd/Kile)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FRealAd%2FKile.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FRealAd%2FKile?ref=badge_shield)
 [![GitHub](https://img.shields.io/github/license/RealAd/Kile)](https://github.com/RealAd/Kile/blob/master/LICENSE)
 
 __Kile is a flexible and comprehensive filesystem abstraction library for [Kotlin](https://kotlinlang.org/) with multiplatform support, as well as for Java and NodeJs.__
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FRealAd%2FKile.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FRealAd%2FKile?ref=badge_large)
