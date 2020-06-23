@@ -2,6 +2,8 @@ package io.realad.kile.error
 
 /**
  * An abstraction of errors when working with the file system.
+ *
+ * @property operation an operation that was performed when an error was received.
  */
 abstract class FilesystemOperationError constructor(
     private val operation: Operation,
@@ -13,5 +15,10 @@ abstract class FilesystemOperationError constructor(
         RETRIEVE_METADATA
     }
 
+    /**
+     * Returns an operation that was performed when an error was received
+     *
+     * @return an operation that was performed when an error was received
+     */
     fun getOperation(): Operation = operation
 }

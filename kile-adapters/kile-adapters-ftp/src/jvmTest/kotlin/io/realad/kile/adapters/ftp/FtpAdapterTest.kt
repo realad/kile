@@ -21,6 +21,10 @@ import io.realad.kile.fp.right
  */
 class FtpAdapterTest : StringSpec({
 
+    val testLocation = "/root/test"
+    val listOfThreeDirectoryAttributes = listOf("one", "two", "three").map { DirectoryAttributes(it) }
+    val errorMessage = "hello error"
+
     lateinit var options: FtpOptions
     lateinit var provider: FtpProvider
     lateinit var connection: FtpConnection
@@ -34,62 +38,53 @@ class FtpAdapterTest : StringSpec({
     }
 
     "should return a list of the directory contents returned from connection without reconnection" {
-        val location = "/root/test"
-        val listDirectoryResult = listOf("one", "two", "three").map { DirectoryAttributes(it) }
         every { provider.getConnection(any()) } returns connection.right()
-        every { connection.mlistDir(any()) } returns listDirectoryResult
-        val response = adapter.listContents(location)
+        every { connection.mlistDir(any()) } returns listOfThreeDirectoryAttributes
+        val response = adapter.listContents(testLocation)
         response.isLeft() shouldBe false
         response.isRight() shouldBe true
         (response as Either.Right).r shouldNotBe null
-        response.r shouldBe listDirectoryResult
-        response.r shouldContainExactly listDirectoryResult
+        response.r shouldBe listOfThreeDirectoryAttributes
+        response.r shouldContainExactly listOfThreeDirectoryAttributes
         verify(exactly = 1) { provider.getConnection(any()) }
         verify(exactly = 1) { connection.mlistDir(any()) }
         confirmVerified(connection, provider)
     }
 
     "should return a list of the directory contents returned from connection with a single reconnection" {
-        val location = "/root/test"
-        val listDirectoryResult = listOf("one", "two", "three").map { DirectoryAttributes(it) }
-        every { provider.getConnection(any()) } returns FilesystemError("hello error").left() andThen
-            connection.right()
-        every { connection.mlistDir(any()) } returns listDirectoryResult
-        val response = adapter.listContents(location)
+        every { provider.getConnection(any()) } returns FilesystemError(errorMessage).left() andThen connection.right()
+        every { connection.mlistDir(any()) } returns listOfThreeDirectoryAttributes
+        val response = adapter.listContents(testLocation)
         response.isLeft() shouldBe false
         response.isRight() shouldBe true
         (response as Either.Right).r shouldNotBe null
-        response.r shouldBe listDirectoryResult
-        response.r shouldContainExactly listDirectoryResult
+        response.r shouldBe listOfThreeDirectoryAttributes
+        response.r shouldContainExactly listOfThreeDirectoryAttributes
         verify(exactly = 2) { provider.getConnection(any()) }
         verify(exactly = 1) { connection.mlistDir(any()) }
         confirmVerified(connection, provider)
     }
 
     "should return a list of the directory contents returned from connection with a triple reconnection" {
-        val location = "/root/test"
-        val listDirectoryResult = listOf("one", "two", "three").map { DirectoryAttributes(it) }
-        every { provider.getConnection(any()) } returns FilesystemError("hello error").left() andThen
-            FilesystemError("hello error").left() andThen connection.right()
-        every { connection.mlistDir(any()) } returns listDirectoryResult
-        val response = adapter.listContents(location)
+        every { provider.getConnection(any()) } returns FilesystemError(errorMessage).left() andThen
+            FilesystemError(errorMessage).left() andThen connection.right()
+        every { connection.mlistDir(any()) } returns listOfThreeDirectoryAttributes
+        val response = adapter.listContents(testLocation)
         response.isLeft() shouldBe false
         response.isRight() shouldBe true
         (response as Either.Right).r shouldNotBe null
-        response.r shouldBe listDirectoryResult
-        response.r shouldContainExactly listDirectoryResult
+        response.r shouldBe listOfThreeDirectoryAttributes
+        response.r shouldContainExactly listOfThreeDirectoryAttributes
         verify(exactly = 3) { provider.getConnection(any()) }
         verify(exactly = 1) { connection.mlistDir(any()) }
         confirmVerified(connection, provider)
     }
 
     "should return an error after more than three reconnections" {
-        val location = "/root/test"
-        val listDirectoryResult = listOf("one", "two", "three").map { DirectoryAttributes(it) }
-        every { provider.getConnection(any()) } returns FilesystemError("hello error").left() andThen
-            FilesystemError("hello error").left() andThen FilesystemError("hello error").left()
-        every { connection.mlistDir(any()) } returns listDirectoryResult
-        val response = adapter.listContents(location)
+        every { provider.getConnection(any()) } returns FilesystemError(errorMessage).left() andThen
+            FilesystemError(errorMessage).left() andThen FilesystemError(errorMessage).left()
+        every { connection.mlistDir(any()) } returns listOfThreeDirectoryAttributes
+        val response = adapter.listContents(testLocation)
         response.isLeft() shouldBe true
         response.isRight() shouldBe false
         (response as Either.Left).l shouldNotBe null
@@ -102,23 +97,20 @@ class FtpAdapterTest : StringSpec({
     }
 
     "should return a list of directory contents with a single reconnection and then return the list successfully" {
-        val location = "/root/test"
-        val listDirectoryResult = listOf("one", "two", "three").map { DirectoryAttributes(it) }
-        every { provider.getConnection(any()) } returns FilesystemError("hello error").left() andThen
-            connection.right()
-        every { connection.mlistDir(any()) } returns listDirectoryResult
-        val firstResponse = adapter.listContents(location)
+        every { provider.getConnection(any()) } returns FilesystemError(errorMessage).left() andThen connection.right()
+        every { connection.mlistDir(any()) } returns listOfThreeDirectoryAttributes
+        val firstResponse = adapter.listContents(testLocation)
         firstResponse.isLeft() shouldBe false
         firstResponse.isRight() shouldBe true
         (firstResponse as Either.Right).r shouldNotBe null
-        firstResponse.r shouldBe listDirectoryResult
-        firstResponse.r shouldContainExactly listDirectoryResult
-        val secondResponse = adapter.listContents(location)
+        firstResponse.r shouldBe listOfThreeDirectoryAttributes
+        firstResponse.r shouldContainExactly listOfThreeDirectoryAttributes
+        val secondResponse = adapter.listContents(testLocation)
         secondResponse.isLeft() shouldBe false
         secondResponse.isRight() shouldBe true
         (secondResponse as Either.Right).r shouldNotBe null
-        secondResponse.r shouldBe listDirectoryResult
-        secondResponse.r shouldContainExactly listDirectoryResult
+        secondResponse.r shouldBe listOfThreeDirectoryAttributes
+        secondResponse.r shouldContainExactly listOfThreeDirectoryAttributes
         verify(exactly = 2) { provider.getConnection(any()) }
         verify(exactly = 2) { connection.mlistDir(any()) }
         confirmVerified(connection, provider)

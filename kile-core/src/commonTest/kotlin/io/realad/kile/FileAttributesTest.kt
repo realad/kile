@@ -10,21 +10,21 @@ import io.kotest.matchers.shouldBe
  */
 class FileAttributesTest : StringSpec({
 
+    val testLocation = "/root/test"
+
     "should return the same attributes with a null file size" {
-        val path = "/root/test"
         val fileSize = null
-        val attributes = FileAttributes(path, fileSize)
+        val attributes = FileAttributes(testLocation, fileSize)
         attributes.getType() shouldBe KileAttributes.Type.FILE
-        attributes.getPath() shouldBe path
+        attributes.getPath() shouldBe testLocation
         attributes.getFileSize() shouldBe null
     }
 
     "should return the same attributes with file size" {
-        val path = "/root/test"
         val fileSize = 123L
-        val attributes = FileAttributes(path, fileSize)
+        val attributes = FileAttributes(testLocation, fileSize)
         attributes.getType() shouldBe KileAttributes.Type.FILE
-        attributes.getPath() shouldBe path
+        attributes.getPath() shouldBe testLocation
         attributes.getFileSize() shouldBe fileSize
     }
 

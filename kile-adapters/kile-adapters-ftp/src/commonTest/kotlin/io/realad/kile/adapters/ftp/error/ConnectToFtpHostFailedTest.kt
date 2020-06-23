@@ -12,21 +12,21 @@ import io.realad.kile.error.FilesystemError
  */
 class ConnectToFtpHostFailedTest : StringSpec({
 
+    val testHost = "localhost"
+    val testPort = 1234
+    val testPreviousError = FilesystemError("previous error")
+
     "should return message for login authentication failure" {
-        val host = "localhost"
-        val port = 1234
-        val error = ConnectToFtpHostFailed.forHost(host, port)
-        error.getMessage() shouldBe "Unable to connect to host $host at port $port."
+        val error = ConnectToFtpHostFailed.forHost(testHost, testPort)
+        error.getMessage() shouldBe "Unable to connect to host $testHost at port $testPort."
         error.getPrevious() shouldBe null
     }
 
     "should return message for login authentication failure and previous error if exists" {
-        val host = "localhost"
-        val port = 1234
-        val previousError = FilesystemError("previous error")
-        val error = ConnectToFtpHostFailed.forHost(host, port, previousError)
-        error.getMessage() shouldBe "Unable to connect to host $host at port $port."
+        val error = ConnectToFtpHostFailed.forHost(testHost, testPort, testPreviousError)
+        error.getMessage() shouldBe "Unable to connect to host $testHost at port $testPort."
         error.getPrevious() shouldNotBe null
+        error.getPrevious() shouldBe testPreviousError
         error.getPrevious()?.getMessage() shouldBe "previous error"
     }
 

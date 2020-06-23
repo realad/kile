@@ -15,6 +15,9 @@ import io.realad.kile.fp.right
  */
 class KileTest : StringSpec({
 
+    val testLocation = "/root/test"
+    val listOfThreeDirectoryAttributes = listOf("one", "two", "three").map { DirectoryAttributes(it) }
+
     lateinit var adapter: KileAdapter
     lateinit var kile: Kile
 
@@ -24,27 +27,23 @@ class KileTest : StringSpec({
     }
 
     "fileExists should return true if the adapter returns true" {
-        val location = "/root/test"
-        every { adapter.fileExists(location) } returns true.right()
-        kile.fileExists(location) shouldBe true.right()
-        verify(exactly = 1) { adapter.fileExists(location) }
+        every { adapter.fileExists(testLocation) } returns true.right()
+        kile.fileExists(testLocation) shouldBe true.right()
+        verify(exactly = 1) { adapter.fileExists(testLocation) }
         confirmVerified(adapter)
     }
 
     "fileExists should return false if the adapter returns false" {
-        val location = "/root/test"
-        every { adapter.fileExists(location) } returns false.right()
-        kile.fileExists(location) shouldBe false.right()
-        verify(exactly = 1) { adapter.fileExists(location) }
+        every { adapter.fileExists(testLocation) } returns false.right()
+        kile.fileExists(testLocation) shouldBe false.right()
+        verify(exactly = 1) { adapter.fileExists(testLocation) }
         confirmVerified(adapter)
     }
 
     "listContent should return list if the adapter returns list" {
-        val location = "/root/test"
-        val list = listOf("one", "two", "three").map { DirectoryAttributes(it) }
-        every { adapter.listContents(location) } returns list.right()
-        kile.listContents(location) shouldBe list.right()
-        verify(exactly = 1) { adapter.listContents(location) }
+        every { adapter.listContents(testLocation) } returns listOfThreeDirectoryAttributes.right()
+        kile.listContents(testLocation) shouldBe listOfThreeDirectoryAttributes.right()
+        verify(exactly = 1) { adapter.listContents(testLocation) }
         confirmVerified(adapter)
     }
 
