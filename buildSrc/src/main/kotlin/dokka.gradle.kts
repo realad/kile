@@ -6,16 +6,27 @@ plugins {
 }
 
 subprojects {
+    val subproject = this
     apply<DokkaPlugin>()
 
     tasks {
         val dokka by getting(DokkaTask::class) {
-            outputDirectory = "$buildDir/dokka"
-            outputFormat = "html"
+            outputFormat = "jekyll"
+            outputDirectory = "$rootDir/docs/pages/kdoc"
 
             multiplatform {
-                val js by creating
-                val jvm by creating
+                val common by creating {
+                    moduleName = subproject.name
+                    reportUndocumented = false
+                }
+                val js by creating {
+                    moduleName = subproject.name
+                    reportUndocumented = false
+                }
+                val jvm by creating {
+                    moduleName = subproject.name
+                    reportUndocumented = false
+                }
             }
         }
     }
