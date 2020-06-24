@@ -1,13 +1,13 @@
 {% assign pages = site.pages %}
 <ul id="navbar" class="nav">
-    <li><a href="/">Home</a></li>
+    <li><a href="/ | relative_url">Home</a></li>
     <li>KDoc</li>
     <ul>
         {% assign pages = pages | where_exp: "item", "item.url contains 'pages/kdoc'" %}
         {% for page in pages %}
             {% assign path = page.url | split: "/"  %}
             {% if path.size == 4 %}
-                <li><a href="{{ page.url }}">{{ path[3] }}</a></li>
+                <li><a href="{{ page.url | relative_url }}">{{ path[3] }}</a></li>
             {% endif %}
         {% endfor %}
     </ul>
