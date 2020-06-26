@@ -18,7 +18,7 @@ class FileUtilsTest : StringSpec({
     }
 
     "should throw not implemented error when calling fileExists" {
-        shouldThrow<NotImplementedError> {
+        shouldNotThrow<NotImplementedError> {
             FileUtils().fileExists("/")
         }
     }
