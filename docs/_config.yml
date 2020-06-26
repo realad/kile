@@ -1,1 +1,4 @@
 google_analytics: UA-170781825-1
+
+plugins:
+  - jekyll-sitemap
