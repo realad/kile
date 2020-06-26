@@ -13,6 +13,7 @@ actual class FileUtils {
      * Returns an array of attributes denoting the files in the
      * directory denoted by this abstract pathname.
      *
+     * @param pathname A pathname string
      * @return An array of attributes denoting the files and directories
      * in the directory denoted by the pathname. The array will be empty
      * if the directory is empty.
@@ -25,6 +26,7 @@ actual class FileUtils {
      * Tests whether the file or directory denoted by this abstract pathname
      * exists.
      *
+     * @param pathname A pathname string
      * @return {@code true} if and only if the file or directory denoted
      * by this abstract pathname exists, {@code false} otherwise
      */
