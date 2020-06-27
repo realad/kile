@@ -5,8 +5,9 @@ repositories {
 kotlin {
     targets {
         js {
-            nodejs()
+            moduleName = "kile-fp"
             useCommonJs()
+            nodejs()
         }
         jvm {
             compilations.all {

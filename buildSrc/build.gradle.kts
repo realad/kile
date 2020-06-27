@@ -8,6 +8,9 @@ kotlinDslPluginOptions {
 
 repositories {
     jcenter()
+    maven {
+        url = uri("https://dl.bintray.com/kotlin/kotlin-eap")
+    }
 }
 
 /**
@@ -19,7 +22,7 @@ object Plugins {
      * https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-gradle-plugin
      */
     object Kotlin {
-        private const val version = "1.3.72"
+        private const val version = "1.4-M2"
         const val gradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
     }
 
