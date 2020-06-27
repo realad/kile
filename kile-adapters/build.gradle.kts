@@ -5,8 +5,9 @@ repositories {
 kotlin {
     targets {
         js {
-            nodejs()
+            moduleName = "kile-adapters"
             useCommonJs()
+            nodejs()
         }
         jvm {
             compilations.all {
