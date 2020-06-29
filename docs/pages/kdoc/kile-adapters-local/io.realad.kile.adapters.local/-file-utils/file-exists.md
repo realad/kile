@@ -11,10 +11,6 @@ title: io.realad.kile.adapters.local.FileUtils.fileExists - kile-adapters-local
 Tests whether the file or directory denoted by this abstract pathname
 exists.
 
-### Parameters
-
-`pathname` - A pathname string
-
 **Return**
 {@code true} if and only if the file or directory denoted
 by this abstract pathname exists, {@code false} otherwise

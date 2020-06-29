@@ -5,9 +5,8 @@ repositories {
 kotlin {
     targets {
         js {
-            moduleName = "kile-core"
-            useCommonJs()
             nodejs()
+            useCommonJs()
         }
         jvm {
             compilations.all {

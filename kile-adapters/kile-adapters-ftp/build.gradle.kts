@@ -5,9 +5,8 @@ repositories {
 kotlin {
     targets {
         js {
-            moduleName = "kile-adapters-ftp"
-            useCommonJs()
             nodejs()
+            useCommonJs()
         }
         jvm {
             compilations.all {
