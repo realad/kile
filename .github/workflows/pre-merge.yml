@@ -51,7 +51,7 @@ jobs:
 
       - name: Build Kile
         if: matrix.os == 'macos-latest' || matrix.os == 'ubuntu-latest' || matrix.os == 'windows-latest'
-        run: ./gradlew build -PwarningsAsErrors=true --parallel
+        run: ./gradlew build -x compileTestKotlinJs -PwarningsAsErrors=true --parallel
 
       - name: Bundle the build report
         if: failure()
