@@ -35,9 +35,13 @@ jobs:
         with:
           java-version: 8
 
+      - name: Test
+        if: ${{ github.repository == 'RealAd/Kile'}}
+        run: ./gradlew allTest -x compileTestKotlinJs --stacktrace --build-cache --parallel -PwarningsAsErrors=true
+
       - name: Deploy Snapshot to Github Packages
         if: ${{ github.repository == 'RealAd/Kile'}}
-        run: ./gradlew build publish npmPublish -x compileTestKotlinJs --stacktrace --build-cache --parallel -PwarningsAsErrors=true
+        run: ./gradlew publish npmPublish --parallel -PwarningsAsErrors=true
         env:
           REPOSITORY_USERNAME: $GITHUB_ACTOR
           REPOSITORY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}

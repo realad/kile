@@ -34,7 +34,7 @@ open class NpmPublishExtension {
             onExtensionChanged.forEach { it(this) }
         }
 
-    var token: String = ""
+    var token: String? = null
         set(value) {
             field = value
             onExtensionChanged.forEach { it(this) }
