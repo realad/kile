@@ -141,7 +141,7 @@ fun Project.configureJsPackage(packageJsonTask: String = "jsPackageJson", compil
             dependencies = dependencies?.mapKeys {
                 if ("kile" in it.key) "@$githubOwner/${it.key}" else it.key
             }?.mapValues {
-                if ("kile" in it.key) it.value.substringBefore('+') else it.value
+                if ("kile" in it.key) it.value.substringBefore('+') else if ("kotlin" == it.key) "1.4.0-M2" else it.value
             }?.toMutableMap()
             publishConfig = PublishConfig("https://$githubRegistry/")
             repository = Repository("git", "ssh://git@github.com/$githubOwner/$githubRepository.git")
