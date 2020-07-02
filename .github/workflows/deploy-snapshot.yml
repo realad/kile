@@ -1,4 +1,4 @@
-name: Deploy Snapshot
+name: Publish Snapshot
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  gradle:
+  publish-multiplatform:
     if: ${{ !contains(github.event.head_commit.message, 'ci skip') }}
     runs-on: ubuntu-latest
     env:
@@ -41,7 +41,47 @@ jobs:
 
       - name: Deploy Snapshot to Github Packages
         if: ${{ github.repository == 'RealAd/Kile'}}
-        run: ./gradlew npmPublish publish -x dokka --parallel -PwarningsAsErrors=true
+        run: ./gradlew publish -x dokka --parallel -PwarningsAsErrors=true
+        env:
+          REPOSITORY_USERNAME: $GITHUB_ACTOR
+          REPOSITORY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+
+  publish-npm:
+    if: ${{ !contains(github.event.head_commit.message, 'ci skip') }}
+    runs-on: ubuntu-latest
+    env:
+      GRADLE_OPTS: -Dorg.gradle.daemon=false
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Set env with number of commits since the last tag
+        run:  echo ::set-env name=NUMBER_OF_COMMITS_SINCE_LAST_TAG::$(git describe --tags --first-parent | cut -d- -f2)
+
+      - name: Cache Gradle Folders
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches/
+            ~/.gradle/wrapper/
+          key: cache-gradle-${{ hashFiles('build.gradle.kts') }}
+          restore-keys: |
+            cache-gradle-
+
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: 8
+
+      - name: Build
+        if: ${{ github.repository == 'RealAd/Kile'}}
+        run: ./gradlew build -x compileTestKotlinJs --stacktrace --build-cache --parallel -PwarningsAsErrors=true
+
+      - name: Deploy Snapshot to Github Packages
+        if: ${{ github.repository == 'RealAd/Kile'}}
+        run: ./gradlew npmPublish -x dokka --parallel -PwarningsAsErrors=true
         env:
           REPOSITORY_USERNAME: $GITHUB_ACTOR
           REPOSITORY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
