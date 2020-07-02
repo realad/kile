@@ -2,11 +2,13 @@ package io.realad.kile
 
 import io.realad.kile.error.FilesystemError
 import io.realad.kile.fp.Either
+import kotlin.js.ExperimentalJsExport
 import kotlin.js.JsExport
 
 /**
  * This is core class to access to the kile functionality
  */
+@ExperimentalJsExport
 @JsExport
 class Kile(private val adapter: KileAdapter) : KileOperator {
 
