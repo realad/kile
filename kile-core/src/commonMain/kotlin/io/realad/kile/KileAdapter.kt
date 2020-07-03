@@ -16,6 +16,6 @@ interface KileAdapter {
     /**
      * Function to check if a file exists.
      */
-    fun fileExists(location: String): Either<FilesystemError, Boolean>
+    fun fileExists(path: String): Either<FilesystemError, Boolean>
 
 }

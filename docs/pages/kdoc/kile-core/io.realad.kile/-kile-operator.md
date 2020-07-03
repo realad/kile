@@ -12,5 +12,5 @@ This interface aggregates filesystem read and write interfaces.
 
 ### Inheritors
 
-| (common, js, jvm) [Kile](-kile/index.html) | This is core class to access to the kile functionality`class Kile : `[`KileOperator`](./-kile-operator.html) |
+| (common, js, jvm) [Kile](-kile/index.html) | Kile operator, which can be used to perform operations with any storage through the [adapter](-kile-adapter/index.html#io.realad.kile.KileAdapter).`class Kile : `[`KileOperator`](./-kile-operator.html) |
 

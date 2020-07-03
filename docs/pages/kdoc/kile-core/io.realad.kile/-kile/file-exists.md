@@ -6,7 +6,14 @@ title: io.realad.kile.Kile.fileExists - kile-core
 
 # fileExists
 
-(common, js, jvm) `fun fileExists(location: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`): Either<`[`FilesystemError`](../../io.realad.kile.error/-filesystem-error/index.html)`, `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html)`>`
+(common, js, jvm) `fun fileExists(path: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`): Either<`[`FilesystemError`](../../io.realad.kile.error/-filesystem-error/index.html)`, `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html)`>`
 
-Function to check if a file exists.
+Check if the file exists at the specified path.
+
+### Parameters
+
+`path` - the path to the file.
+
+**Return**
+true if the file exists, or false if not, either return an error.
 

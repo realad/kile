@@ -11,6 +11,10 @@ title: io.realad.kile.adapters.local.FileUtils.listContents - kile-adapters-loca
 Returns an array of attributes denoting the files in the
 directory denoted by this abstract pathname.
 
+### Parameters
+
+`pathname` - A pathname string
+
 **Return**
 An array of attributes denoting the files and directories
 in the directory denoted by the pathname. The array will be empty

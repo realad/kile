@@ -20,8 +20,8 @@ class LocalAdapter(private val fileUtils: FileUtils): KileAdapter {
     /**
      * Function to check if a file exists.
      */
-    override fun fileExists(location: String): Either<FilesystemError, Boolean> {
-        return fileUtils.fileExists(location)
+    override fun fileExists(path: String): Either<FilesystemError, Boolean> {
+        return fileUtils.fileExists(path)
     }
 
 }
