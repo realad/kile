@@ -8,5 +8,8 @@ title: io.realad.kile.Kile.<init> - kile-core
 
 (common, js, jvm) `<init>(adapter: `[`KileAdapter`](../-kile-adapter/index.html)`)`
 
-This is core class to access to the kile functionality
+Creates a new instance.
+
+**Constructor**
+Creates a new instance.
 

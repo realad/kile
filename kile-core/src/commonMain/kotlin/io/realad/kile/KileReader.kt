@@ -10,6 +10,6 @@ interface KileReader {
 
     fun listContents(path: String): Either<FilesystemError, List<KileAttributes>>
 
-    fun fileExists(location: String): Either<FilesystemError, Boolean>
+    fun fileExists(path: String): Either<FilesystemError, Boolean>
 
 }

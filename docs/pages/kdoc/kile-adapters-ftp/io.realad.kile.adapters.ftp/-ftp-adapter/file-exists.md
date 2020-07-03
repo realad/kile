@@ -6,7 +6,7 @@ title: io.realad.kile.adapters.ftp.FtpAdapter.fileExists - kile-adapters-ftp
 
 # fileExists
 
-(common, js, jvm) `fun fileExists(location: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`): Either<FilesystemError, `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html)`>`
+(common, js, jvm) `fun fileExists(path: `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`): Either<FilesystemError, `[`Boolean`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html)`>`
 
 Function to check if a file exists.
 

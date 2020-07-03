@@ -59,7 +59,7 @@ class FtpAdapter(
     /**
      * Function to check if a file exists.
      */
-    override fun fileExists(location: String): Either<FilesystemError, Boolean> {
+    override fun fileExists(path: String): Either<FilesystemError, Boolean> {
         TODO("Not yet implemented")
     }
 
