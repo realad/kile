@@ -17,10 +17,6 @@ plugins {
 repositories {
     mavenCentral()
     jcenter()
-    maven {
-        url = uri("https://dl.bintray.com/kotlin/kotlin-eap")
-    }
-    maven(url = "https://oss.sonatype.org/content/repositories/snapshots/")
 }
 
 group = "io.realad.kile"
@@ -55,11 +51,9 @@ multiplatformSubprojects.forEachProject {
 
     kotlin {
         targets {
-            js(IR) {
-                moduleName = subproject.name
+            js {
                 useCommonJs()
                 nodejs()
-                binaries.executable()
             }
             jvm {
                 compilations.all {
