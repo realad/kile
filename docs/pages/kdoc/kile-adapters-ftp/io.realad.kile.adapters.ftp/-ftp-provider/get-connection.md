@@ -7,3 +7,13 @@ title: io.realad.kile.adapters.ftp.FtpProvider.getConnection - kile-adapters-ftp
 # getConnection
 
 (common, js, jvm) `abstract fun getConnection(options: `[`FtpOptions`](../-ftp-options/index.html)`): Either<FilesystemError, `[`FtpConnection`](../-ftp-connection/index.html)`>`
+
+FTP connection.
+
+### Parameters
+
+`options` - FTP connection settings.
+
+**Return**
+The FTP connection or error.
+

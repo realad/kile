@@ -23,7 +23,7 @@ title: alltypes - kile-adapters-ftp
 
 ##### [io.realad.kile.adapters.ftp.FtpAdapter](../io.realad.kile.adapters.ftp/-ftp-adapter/index.html)
 
-An adapter for accessing the file system via FTP.
+An adapter for accessing the storage via FTP.
 
 
 |(common, js, jvm)
@@ -45,9 +45,13 @@ An adapter for accessing the file system via FTP.
 
 ##### [io.realad.kile.adapters.ftp.FtpOptions](../io.realad.kile.adapters.ftp/-ftp-options/index.html)
 
+Interface for the FTP connection settings.
+
 
 |(common, js, jvm)
 
 ##### [io.realad.kile.adapters.ftp.FtpProvider](../io.realad.kile.adapters.ftp/-ftp-provider/index.html)
+
+Interface for the FTP connection provider.
 
 

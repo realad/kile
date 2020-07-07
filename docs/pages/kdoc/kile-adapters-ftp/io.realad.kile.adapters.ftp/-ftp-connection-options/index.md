@@ -14,8 +14,8 @@ title: io.realad.kile.adapters.ftp.FtpConnectionOptions - kile-adapters-ftp
 
 ### Functions
 
-| (js, jvm) [getHost](get-host.html) | `fun getHost(): `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) |
-| (js, jvm) [getPassword](get-password.html) | `fun getPassword(): `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`?` |
-| (js, jvm) [getPort](get-port.html) | `fun getPort(): `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html) |
-| (js, jvm) [getUsername](get-username.html) | `fun getUsername(): `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) |
+| (js, jvm) [getHost](get-host.html) | FTP host.`fun getHost(): `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) |
+| (js, jvm) [getPassword](get-password.html) | FTP user password.`fun getPassword(): `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`?` |
+| (js, jvm) [getPort](get-port.html) | FTP port.`fun getPort(): `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html) |
+| (js, jvm) [getUsername](get-username.html) | FTP username.`fun getUsername(): `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html) |
 

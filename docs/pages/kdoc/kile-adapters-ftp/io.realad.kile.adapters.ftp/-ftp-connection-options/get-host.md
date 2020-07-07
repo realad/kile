@@ -7,3 +7,9 @@ title: io.realad.kile.adapters.ftp.FtpConnectionOptions.getHost - kile-adapters-
 # getHost
 
 (js, jvm) `fun getHost(): `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)
+
+FTP host.
+
+**Return**
+the FTP host.
+
