@@ -8,8 +8,19 @@ import io.realad.kile.fp.Either
  */
 interface KileReader {
 
+    /**
+     * Return a list of contents at the specified path.
+     *
+     * @param path path to content.
+     * @return a list of attributes if the content exists, or an empty list if the content is missing, either returns an error.
+     */
     fun listContents(path: String): Either<FilesystemError, List<KileAttributes>>
 
+    /**
+     *
+     *
+     * @param path the path to the file.
+     */
     fun fileExists(path: String): Either<FilesystemError, Boolean>
 
 }
