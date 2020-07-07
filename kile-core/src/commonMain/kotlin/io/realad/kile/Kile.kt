@@ -2,8 +2,6 @@ package io.realad.kile
 
 import io.realad.kile.error.FilesystemError
 import io.realad.kile.fp.Either
-import kotlin.js.ExperimentalJsExport
-import kotlin.js.JsExport
 
 /**
  * Kile operator, which can be used to perform operations with any storage through the [adapter][KileAdapter].
@@ -28,8 +26,6 @@ import kotlin.js.JsExport
  * @param adapter the storage adapter.
  * @constructor Creates a new instance.
  */
-@ExperimentalJsExport
-@JsExport
 class Kile(private val adapter: KileAdapter) : KileOperator {
 
     /**

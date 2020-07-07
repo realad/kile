@@ -37,7 +37,7 @@ jobs:
 
       - name: Build
         if: ${{ github.repository == 'RealAd/Kile'}}
-        run: ./gradlew build -x compileTestKotlinJs --stacktrace --build-cache --parallel -PwarningsAsErrors=true
+        run: ./gradlew build --stacktrace --build-cache --parallel -PwarningsAsErrors=true
 
       - name: Deploy Snapshot to Github Packages
         if: ${{ github.repository == 'RealAd/Kile'}}
@@ -77,7 +77,7 @@ jobs:
 
       - name: Build
         if: ${{ github.repository == 'RealAd/Kile'}}
-        run: ./gradlew build -x compileTestKotlinJs --stacktrace --build-cache --parallel -PwarningsAsErrors=true
+        run: ./gradlew build --stacktrace --build-cache --parallel -PwarningsAsErrors=true
 
       - name: Deploy Snapshot to Github Packages
         if: ${{ github.repository == 'RealAd/Kile'}}
