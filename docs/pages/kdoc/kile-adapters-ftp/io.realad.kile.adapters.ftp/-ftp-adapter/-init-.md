@@ -8,5 +8,8 @@ title: io.realad.kile.adapters.ftp.FtpAdapter.<init> - kile-adapters-ftp
 
 (common, js, jvm) `<init>(ftpOptions: `[`FtpOptions`](../-ftp-options/index.html)`, ftpProvider: `[`FtpProvider`](../-ftp-provider/index.html)`)`
 
-An adapter for accessing the file system via FTP.
+Creates a new instance.
+
+**Constructor**
+Creates a new instance.
 

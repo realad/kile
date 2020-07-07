@@ -8,9 +8,11 @@ title: io.realad.kile.adapters.ftp.FtpProvider - kile-adapters-ftp
 
 (common, js, jvm) `interface FtpProvider`
 
+Interface for the FTP connection provider.
+
 ### Functions
 
-| (common, js, jvm) [getConnection](get-connection.html) | `abstract fun getConnection(options: `[`FtpOptions`](../-ftp-options/index.html)`): Either<FilesystemError, `[`FtpConnection`](../-ftp-connection/index.html)`>` |
+| (common, js, jvm) [getConnection](get-connection.html) | FTP connection.`abstract fun getConnection(options: `[`FtpOptions`](../-ftp-options/index.html)`): Either<FilesystemError, `[`FtpConnection`](../-ftp-connection/index.html)`>` |
 
 ### Inheritors
 

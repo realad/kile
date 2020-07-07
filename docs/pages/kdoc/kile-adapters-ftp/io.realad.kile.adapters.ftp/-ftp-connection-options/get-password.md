@@ -7,3 +7,9 @@ title: io.realad.kile.adapters.ftp.FtpConnectionOptions.getPassword - kile-adapt
 # getPassword
 
 (js, jvm) `fun getPassword(): `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)`?`
+
+FTP user password.
+
+**Return**
+the FTP user password or null.
+

@@ -14,5 +14,5 @@ title: io.realad.kile.adapters.ftp.FtpConnectionProvider - kile-adapters-ftp
 
 ### Functions
 
-| (js, jvm) [getConnection](get-connection.html) | `fun getConnection(options: `[`FtpOptions`](../-ftp-options/index.html)`): Either<FilesystemError, `[`FtpConnection`](../-ftp-connection/index.html)`>` |
+| (js, jvm) [getConnection](get-connection.html) | FTP connection.`fun getConnection(options: `[`FtpOptions`](../-ftp-options/index.html)`): Either<FilesystemError, `[`FtpConnection`](../-ftp-connection/index.html)`>` |
 

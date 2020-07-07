@@ -7,3 +7,9 @@ title: io.realad.kile.adapters.ftp.FtpConnectionOptions.getUsername - kile-adapt
 # getUsername
 
 (js, jvm) `fun getUsername(): `[`String`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html)
+
+FTP username.
+
+**Return**
+the FTP username.
+

@@ -8,7 +8,11 @@ import io.realad.kile.fp.left
 import io.realad.kile.fp.right
 
 /**
- * An adapter for accessing the file system via FTP.
+ * An adapter for accessing the storage via FTP.
+ *
+ * @param ftpOptions the FTP connection settings.
+ * @param ftpProvider the FTP connection provider.
+ * @constructor Creates a new instance.
  */
 class FtpAdapter(
     private val ftpOptions: FtpOptions,
@@ -48,7 +52,10 @@ class FtpAdapter(
     ): Either<FilesystemError, FtpConnection> = current.apply { l.apply { setPrevious(previous?.l) } }
 
     /**
-     * Function for displaying catalogs and content.
+     * Return a list of contents at the specified path.
+     *
+     * @param path path to content.
+     * @return a list of attributes if the content exists, or an empty list if the content is missing, either returns an error.
      */
     override fun listContents(path: String): Either<FilesystemError, List<KileAttributes>> =
         when (val either = getConnection()) {
@@ -57,7 +64,10 @@ class FtpAdapter(
         }
 
     /**
-     * Function to check if a file exists.
+     * Check if the file exists at the specified path.
+     *
+     * @param path the path to the file.
+     * @return true if the file exists, or false if not, either return an error.
      */
     override fun fileExists(path: String): Either<FilesystemError, Boolean> {
         TODO("Not yet implemented")

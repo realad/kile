@@ -43,7 +43,7 @@ Kile operator, which can be used to perform operations with any storage through 
 
 ##### [io.realad.kile.KileAdapter](../io.realad.kile/-kile-adapter/index.html)
 
-Base interface for any file system.
+Interface for access to any storage.
 
 
 |(common, js, jvm)

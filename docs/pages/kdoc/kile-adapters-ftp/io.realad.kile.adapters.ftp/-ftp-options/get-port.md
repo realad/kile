@@ -7,3 +7,9 @@ title: io.realad.kile.adapters.ftp.FtpOptions.getPort - kile-adapters-ftp
 # getPort
 
 (common, js, jvm) `abstract fun getPort(): `[`Int`](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html)
+
+FTP port.
+
+**Return**
+the FTP port.
+
